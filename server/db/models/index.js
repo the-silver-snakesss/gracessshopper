@@ -1,5 +1,6 @@
 const User = require('./user')
 const Order = require('./order')
+const Friend = require('./friend')
 // const Item = require('./item') /or const Friend = require('./friend')
 
 /**
@@ -17,9 +18,14 @@ const Order = require('./order')
  */
 
 Order.belongsTo(User)
-// Order.hasMany(Item) or Order.hasMany(Friend)
+
+Order.hasMany(Friend)
+
+User.belongsToMany(Friend, {through: 'Cart'})
+Friend.belongsToMany(User, {through: 'Cart'})
 
 module.exports = {
   User,
-  Order
+  Order,
+  Friend
 }
