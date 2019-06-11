@@ -6,7 +6,11 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>BOILERMAKER</h1>
+    <h1>
+      Imagine{' '}
+      <img src="https://previews.123rf.com/images/andreahast/andreahast1106/andreahast110600004/9730759-pink-flower-of-gerber-isolated.jpg" />{' '}
+      Nation
+    </h1>
     <nav>
       {isLoggedIn ? (
         <div>
