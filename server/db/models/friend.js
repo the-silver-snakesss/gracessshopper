@@ -31,7 +31,7 @@ const Friend = db.define('friend', {
     }
   },
   price: {
-    type: Sequelize.FLOAT(2),
+    type: Sequelize.FLOAT(4),
     allowNull: false
   },
   instock: {

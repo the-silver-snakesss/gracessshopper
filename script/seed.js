@@ -51,7 +51,7 @@ const seed = async () => {
       description: 'First rule of Fight club...',
       likes: 'anarchy',
       activities: 'Fighting',
-      price: 2.0,
+      price: 2.01,
       instock: true,
       image:
         'https://vignette.wikia.nocookie.net/villains/images/7/7b/Tylerbetterpicture.jpg/revision/latest/scale-to-width-down/620?cb=20170410170911',
@@ -63,7 +63,7 @@ const seed = async () => {
       description: 'Sardonic stuffed tiger',
       likes: 'going for walks',
       activities: 'Leisure',
-      price: 50.5,
+      price: 50.58,
       instock: true,
       image:
         'https://vignette.wikia.nocookie.net/dccomicsfannon/images/1/1f/Hobbes.jpg/revision/latest?cb=20171221225748',
@@ -74,7 +74,7 @@ const seed = async () => {
       description: 'I can be your guide',
       likes: 'science',
       activities: 'talking about space and time continuum ',
-      price: 50.0,
+      price: 50.09,
       instock: true,
       image: 'https://cdn-images-1.medium.com/max/1600/0*wou131aVtMKPjkyh.jpg',
       userId: user2.id
@@ -84,7 +84,7 @@ const seed = async () => {
       description: 'Bartender',
       likes: 'spending time in the Overlook Hotel',
       activities: 'drinking',
-      price: 40.2,
+      price: 40.24,
       instock: false,
       image:
         'https://preview.redd.it/kqt98zhromn11.jpg?width=960&crop=smart&auto=webp&s=94b1730968b4d64af9ec0f41eee4bd0615a343d3',
@@ -95,7 +95,7 @@ const seed = async () => {
       description: 'big bird best friend',
       likes: 'cuddling',
       activities: 'being a good best friend',
-      price: 150.3,
+      price: 150.48,
       instock: true,
       image:
         'https://vignette.wikia.nocookie.net/muppet/images/3/3a/Alices.jpg/revision/latest?cb=20161119035937',
