@@ -8,14 +8,25 @@ class SingleFriendView extends React.Component {
     this.props.getFriend(friendId)
   }
   render() {
+    const {
+      image,
+      name,
+      price,
+      likes,
+      description,
+      activities
+    } = this.props.selectedFriend
     return (
       <div>
         <h1>This is the single friend view</h1>
-        <SingleFriend
-          name={this.props.selectedFriend.name}
-          image={this.props.selectedFriend.image}
-          price={this.props.selectedFriend.price}
-        />
+        <img src={image} />
+        <h3>{name}</h3>
+        <h4>price: ${price}</h4>
+        <h4>likes: {likes}</h4>
+        <h4>description: {description}</h4>
+        <h4>activities: {activities}</h4>
+
+        <button type="button">Add to cart!</button>
       </div>
     )
   }
