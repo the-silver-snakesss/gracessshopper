@@ -17,6 +17,7 @@ class InventoryList extends React.Component {
             name={friend.name}
             image={friend.image}
             price={friend.price}
+            id={friend.id}
           />
         ))}
       </div>
