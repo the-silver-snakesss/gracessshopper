@@ -25,5 +25,6 @@ Friend.belongsToMany(Order, {through: 'order_friends'})
 module.exports = {
   User,
   Order,
-  Friend
+  Friend,
+  Order_Friends
 }

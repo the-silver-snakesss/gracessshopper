@@ -35,9 +35,9 @@ const Friend = db.define('friend', {
     allowNull: false
   },
   instock: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.INTEGER,
     allowNull: false,
-    default: true
+    default: 10
   },
   image: {
     type: Sequelize.TEXT,
