@@ -8,7 +8,8 @@ import {
   UserHome,
   Welcome,
   InventoryList,
-  SingleFriendView
+  SingleFriendView,
+  YourOrders
 } from './components'
 import {me} from './store'
 
@@ -35,6 +36,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/orders" component={YourOrders} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
