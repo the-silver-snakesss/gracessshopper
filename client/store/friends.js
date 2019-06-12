@@ -28,7 +28,7 @@ export const getFriends = () => async dispatch => {
 
 export const getFriend = id => async dispatch => {
   try {
-    const {data} = await axios.get(`api/friends/${id}`)
+    const {data} = await axios.get(`/api/friends/${id}`)
     dispatch(gotFriend(data))
   } catch (error) {
     console.error(error)

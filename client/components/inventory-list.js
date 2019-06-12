@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getFriends} from '../store/friends'
+import SingleFriend from './single-friend'
 
 class InventoryList extends React.Component {
   componentDidMount() {
@@ -11,7 +12,13 @@ class InventoryList extends React.Component {
       <div>
         <h1>Here are some friends!</h1>
         {this.props.friends.map(friend => (
-          <div key={friend.id}>{friend.name}</div>
+          <SingleFriend
+            key={friend.id}
+            name={friend.name}
+            image={friend.image}
+            price={friend.price}
+            id={friend.id}
+          />
         ))}
       </div>
     )
