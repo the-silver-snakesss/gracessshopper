@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Friend} = require('../server/db/models')
+const {User, Friend, Order, Order_Friends} = require('../server/db/models')
 
 const seed = async () => {
   try {
@@ -26,24 +26,6 @@ const seed = async () => {
       email: 'ally@gmail.com',
       password: '123'
     })
-    const user4 = await User.create({
-      firstName: 'Lydie',
-      lastName: 'Toussaint',
-      email: 'lydie@email.com',
-      password: '123'
-    })
-    const user5 = await User.create({
-      firstName: 'Asia',
-      lastName: 'Ganon',
-      email: 'asia@hotmail.com',
-      password: '123'
-    })
-    const user6 = await User.create({
-      firstName: 'Natasha',
-      lastName: 'Kelly',
-      email: 'natasha@yahoo.com',
-      password: '123'
-    })
 
     // FRIENDS
     const friend1 = await Friend.create({
@@ -52,7 +34,7 @@ const seed = async () => {
       likes: 'anarchy',
       activities: 'Fighting',
       price: 19.99,
-      instock: true,
+      instock: 30,
       image:
         'https://vignette.wikia.nocookie.net/villains/images/7/7b/Tylerbetterpicture.jpg/revision/latest/scale-to-width-down/620?cb=20170410170911'
     })
@@ -63,7 +45,7 @@ const seed = async () => {
       likes: 'tuna fish',
       activities: 'Leisure',
       price: 19.85,
-      instock: true,
+      instock: 200,
       image:
         'https://vignette.wikia.nocookie.net/dccomicsfannon/images/1/1f/Hobbes.jpg/revision/latest?cb=20171221225748'
     })
@@ -73,7 +55,7 @@ const seed = async () => {
       likes: 'science',
       activities: 'talking about space and time continuum ',
       price: 20.01,
-      instock: true,
+      instock: 30,
       image: 'https://cdn-images-1.medium.com/max/1600/0*wou131aVtMKPjkyh.jpg'
     })
     const friend4 = await Friend.create({
@@ -82,7 +64,7 @@ const seed = async () => {
       likes: 'spending time in the Overlook Hotel',
       activities: 'drinking',
       price: 19.77,
-      instock: false,
+      instock: 70,
       image:
         'https://preview.redd.it/kqt98zhromn11.jpg?width=960&crop=smart&auto=webp&s=94b1730968b4d64af9ec0f41eee4bd0615a343d3'
     })
@@ -92,7 +74,7 @@ const seed = async () => {
       likes: 'cuddling',
       activities: 'being a good best friend',
       price: 19.69,
-      instock: true,
+      instock: 60,
       image:
         'https://vignette.wikia.nocookie.net/muppet/images/3/3a/Alices.jpg/revision/latest?cb=20161119035937'
     })
@@ -103,7 +85,7 @@ const seed = async () => {
       likes: 'Trips to Hawaii and being your boyfriend',
       activities: 'Calling you on the phone and going to weddings with you',
       price: 19.96,
-      instock: true,
+      instock: 20,
       image:
         'https://vignette.wikia.nocookie.net/thebradybunch/images/4/41/George_Glass.png/revision/latest?cb=20180202032210'
     })
@@ -115,7 +97,7 @@ const seed = async () => {
         'The English countryside and getting you out of unpleasant obligations.',
       activities: 'Staying home sick with you',
       price: 18.95,
-      instock: true,
+      instock: 100,
       image:
         '“https://i.kinja-img.com/gawker-media/image/upload/s--IARvqZA1--/c_scale,f_auto,fl_progressive,q_80,w_800/xwavtb38s3qkxds4cnop.jpg'
     })
@@ -126,7 +108,7 @@ const seed = async () => {
       likes: 'Sleeping in a big pile and building models',
       activities: 'Dirt fights and island tours',
       price: 19.63,
-      instock: true,
+      instock: 40,
       image:
         'http://media.onsugar.com/files/ed2/192/1922283/42_2009/39f8db1ba3ef2957_where-the-wild-things-are.jpg'
     })
@@ -136,7 +118,7 @@ const seed = async () => {
       likes: 'throwing your homework out the window and his niece Marcee',
       activities: 'taking a break from work and partying',
       price: 20.01,
-      instock: true,
+      instock: 50,
       image: 'https://www.aveleyman.com/Gallery/2017/B/37883-25696.jpg'
     })
     const friend10 = await Friend.create({
@@ -145,29 +127,56 @@ const seed = async () => {
       likes: 'getting into trouble and bragging',
       activities: 'paddle ball tournaments',
       price: 20.04,
-      instock: true,
+      instock: 20,
       image: 'https://img.photobucket.com/albums/1003/vampwill/BlooKing.jpg'
     })
     // ORDERS
+    const order1 = await Order.create({
+      status: 'complete',
+      userId: 2
+    })
+    const order2 = await Order.create({
+      status: 'pending',
+      userId: 3
+    })
+    const order3 = await Order.create({
+      status: 'complete',
+      userId: 1
+    })
+    const order4 = await Order.create({
+      status: 'complete',
+      userId: 3
+    })
 
-    await Promise.all([
-      friend1,
-      friend2,
-      friend3,
-      friend4,
-      friend5,
-      friend6,
-      friend7,
-      friend8,
-      friend9,
-      friend10,
-      user1,
-      user2,
-      user3,
-      user4,
-      user5,
-      user6
-    ])
+    const order_friends1 = await Order_Friends.create({
+      quantity: 1,
+      orderId: 1,
+      friendId: 2
+    })
+
+    const order_friends2 = await Order_Friends.create({
+      quantity: 4,
+      orderId: 2,
+      friendId: 3
+    })
+
+    const order_friends3 = await Order_Friends.create({
+      quantity: 5,
+      orderId: 3,
+      friendId: 6
+    })
+
+    const order_friends4 = await Order_Friends.create({
+      quantity: 6,
+      orderId: 4,
+      friendId: 1
+    })
+    const order_friends5 = await Order_Friends.create({
+      quantity: 1,
+      orderId: 2,
+      friendId: 8
+    })
+
     console.log('Seeding Success')
     return (
       [
@@ -183,10 +192,7 @@ const seed = async () => {
         friend10,
         user1,
         user2,
-        user3,
-        user4,
-        user5,
-        user6
+        user3
       ],
       db.close()
     )
