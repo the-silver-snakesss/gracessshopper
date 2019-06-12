@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 const SingleFriend = props => {
   const {name, image, price, id} = props
   return (
-    <div>
+    <div className="thumbnail">
       <img src={image} />
       <Link to={`/friends/${id}`}>
         <h3>{name}</h3>
