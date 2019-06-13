@@ -3,6 +3,7 @@ import history from '../history'
 
 //Action types
 const ADD_A_FRIEND = 'ADD_A_FRIEND'
+const GOT_ORDERS = 'GOT_ORDERS'
 
 //Action Creators
 export const addAFriendActionCreator = (userId, obj) => ({
@@ -10,6 +11,12 @@ export const addAFriendActionCreator = (userId, obj) => ({
   pendingOrder: obj,
   id: userId
 })
+
+export const gotOrders = orders => ({
+  type: GOT_ORDERS,
+  orders
+})
+
 //Thunk Creators
 export const addAFriendThunk = (id, obj) => async dispatch => {
   try {
@@ -20,9 +27,20 @@ export const addAFriendThunk = (id, obj) => async dispatch => {
   }
 }
 
+export const getOrdersThunk = userId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/orders/${userId}`)
+    dispatch(gotOrders(data[0]))
+  } catch (error) {
+    next(error)
+  }
+}
+
 //Initial State
 const initialSate = {
-  addtoCart: []
+  addtoCart: [],
+    orders: {}
+
 }
 
 //Reducer
@@ -34,6 +52,8 @@ export default function(state = initialSate, action) {
         ...state,
         addtoCart: [...state.addtoCart, action.pendingOrder]
       }
+     case GOT_ORDERS:
+      return {...state, orders: {...action.orders}}
     default:
       return state
   }
