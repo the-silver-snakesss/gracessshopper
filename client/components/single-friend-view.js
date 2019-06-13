@@ -29,9 +29,7 @@ class SingleFriendView extends React.Component {
       description,
       activities
     } = this.props.selectedFriend
-    if (this.props.user.id === undefined) {
-      this.props.user.id = true
-    }
+
     return (
       <div>
         <h1>This is the single friend view</h1>
@@ -41,7 +39,7 @@ class SingleFriendView extends React.Component {
         <h4>likes: {likes}</h4>
         <h4>description: {description}</h4>
         <h4>activities: {activities}</h4>
-        {this.props.user.id === typeof 'number' ? (
+        {this.props.user.id ? (
           <button
             type="button"
             onClick={() =>
