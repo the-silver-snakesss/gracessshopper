@@ -19,14 +19,16 @@ router.get('/complete/:userId', async (req, res, next) => {
 
 router.get('/pending/:userId', async (req, res, next) => {
   try {
-    const userOrders = await Order.findAll({
+    const [userOrders] = await Order.findAll({
       where: {
         userId: req.params.userId,
         status: 'pending'
       },
       include: [{model: Friend}]
     })
-    res.status(200).json(userOrders)
+    if (userOrders) {
+      res.status(200).json(userOrders.friends)
+    } else res.json([])
   } catch (error) {
     next(error)
   }

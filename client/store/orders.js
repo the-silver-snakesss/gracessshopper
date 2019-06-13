@@ -5,8 +5,13 @@ import history from '../history'
 const GOT_ORDERS = 'GOT_ORDERS'
 const GOT_CART = 'GOT_CART'
 const DELETE_FRIEND = 'DELETE_FRIEND'
+const NO_FRIENDS = 'NO_FRIENDS'
 
 //Action Creators
+export const noFriends = () => ({
+  type: NO_FRIENDS
+})
+
 export const gotOrders = orders => ({
   type: GOT_ORDERS,
   orders
@@ -36,7 +41,12 @@ export const getOrdersThunk = userId => async dispatch => {
 export const getCartThunk = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/pending/${userId}`)
-    dispatch(gotCart(data[0].friends))
+    console.log('DATA', data)
+    if (data) {
+      dispatch(gotCart(data))
+    } else {
+      dispatch(noFriends())
+    }
   } catch (error) {
     console.error(error)
   }
@@ -82,6 +92,8 @@ export default function(state = initialSate, action) {
         ...state,
         cart: state.cart.filter(friend => friend.id !== action.friendId)
       }
+    case NO_FRIENDS:
+      return {...state, cart: [], loading: false}
     default:
       return state
   }
