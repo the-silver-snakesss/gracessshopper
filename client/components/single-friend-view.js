@@ -1,11 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getFriend} from '../store/friends'
+import {addAFriendThunk} from '../store/orders'
+import {me} from '../store/user'
 import SingleFriend from './single-friend'
 class SingleFriendView extends React.Component {
   componentDidMount() {
     const friendId = Number(this.props.match.params.id)
     this.props.getFriend(friendId)
+    this.props.me()
   }
   render() {
     const {
@@ -25,16 +28,25 @@ class SingleFriendView extends React.Component {
         <h4>likes: {likes}</h4>
         <h4>description: {description}</h4>
         <h4>activities: {activities}</h4>
-
-        <button type="button">Add to cart!</button>
+        <button
+          type="button"
+          onClick={() =>
+            this.props.addtoCart(this.props.user.id, this.props.selectedFriend)
+          }
+        >
+          Add to cart!
+        </button>
       </div>
     )
   }
 }
 const mapStateToProps = state => ({
-  selectedFriend: state.friends.selectedFriend
+  selectedFriend: state.friends.selectedFriend,
+  user: state.user
 })
 const mapDispatchToProps = dispatch => ({
-  getFriend: id => dispatch(getFriend(id))
+  getFriend: id => dispatch(getFriend(id)),
+  addtoCart: (id, obj) => dispatch(addAFriendThunk(id, obj)),
+  me: () => dispatch(me())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SingleFriendView)
