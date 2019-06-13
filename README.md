@@ -2,7 +2,8 @@
 
 Snakes Selling Stuff for Senior Studies
 
-##SPOILER ALERT
+# SPOILER ALERT
+
 if you are part of the 1% of people that has not seen the following movies, "The Shining", "Fight Club", or "Sixth Sense" - we apologize in advance!
 
 ## Getting Started
