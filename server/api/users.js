@@ -18,6 +18,10 @@ router.get('/', async (req, res, next) => {
 
 router.post('/:id/add', async (req, res, next) => {
   try {
+    // if (req.params.id.length > 2) {
+    //   console.log(true)
+    // }
+    console.log('this is the id', req.params.id)
     const validate = await Order.findOne({
       where: {
         userId: req.params.id,
