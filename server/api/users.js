@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, Friend, Order_Friends} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -13,5 +13,42 @@ router.get('/', async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
+  }
+})
+
+router.post('/:id/add', async (req, res, next) => {
+  try {
+    // validate the user is logged in
+    // check order table before adding new instance
+    const validate = await Order.findOne({
+      where: {
+        userId: req.params.id,
+        status: 'pending'
+      },
+      include: [{model: Friend}],
+      plain: true,
+      raw: true
+    })
+    if (validate) {
+      const [, added] = await Order_Friends.update(
+        {
+          quantity: 1
+        },
+        {
+          where: {orderId: validate.id},
+          returning: true,
+          plain: true
+        }
+      )
+      res.json(added)
+    } else {
+      const addedFriend = await Order.create({
+        status: 'pending',
+        userId: req.params.id
+      })
+      res.json(addedFriend)
+    }
+  } catch (error) {
+    next(error)
   }
 })
