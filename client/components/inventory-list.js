@@ -11,15 +11,18 @@ class InventoryList extends React.Component {
     return (
       <div>
         <h1>Here are some friends!</h1>
-        {this.props.friends.map(friend => (
-          <SingleFriend
-            key={friend.id}
-            name={friend.name}
-            image={friend.image}
-            price={friend.price}
-            id={friend.id}
-          />
-        ))}
+
+        <div id="friends-container">
+          {this.props.friends.map(friend => (
+            <SingleFriend
+              key={friend.id}
+              name={friend.name}
+              image={friend.image}
+              price={friend.price}
+              id={friend.id}
+            />
+          ))}
+        </div>
       </div>
     )
   }

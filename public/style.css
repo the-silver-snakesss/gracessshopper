@@ -24,3 +24,19 @@ h1 img {
   height: 3vh;
   width: 2.3vw;
 }
+
+#friends-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+#friends-container img {
+  height: 10vh;
+  width: 10vw;
+}
+
+.thumbnail {
+  margin: 3vw 3vh;
+  padding: 1vw 1vh;
+  border: 0.5px solid black;
+}
