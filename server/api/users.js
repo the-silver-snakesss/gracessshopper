@@ -39,6 +39,11 @@ router.post('/:id/add', async (req, res, next) => {
         status: 'pending',
         userId: req.params.id
       })
+      const added = await Order_Friends.create({
+        quantity: 1,
+        orderId: addedFriend.id,
+        friendId: req.body.id
+      })
       res.status(201).json(addedFriend)
     }
   } catch (error) {
