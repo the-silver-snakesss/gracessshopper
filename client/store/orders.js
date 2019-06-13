@@ -1,15 +1,18 @@
 import axios from 'axios'
 import history from '../history'
 
+let count = 0
+
 //Action types
-const ADD_A_FRIEND = 'ADD_A_FRIEND'
 const GOT_ORDERS = 'GOT_ORDERS'
+const GOT_CART = 'GOT_CART'
+const DELETE_FRIEND = 'DELETE_FRIEND'
+const NO_FRIENDS = 'NO_FRIENDS'
+const GUEST_ADD = 'GUEST_ADD'
 
 //Action Creators
-export const addAFriendActionCreator = (userId, obj) => ({
-  type: ADD_A_FRIEND,
-  pendingOrder: obj,
-  id: userId
+export const noFriends = () => ({
+  type: NO_FRIENDS
 })
 
 export const gotOrders = orders => ({
@@ -17,43 +20,94 @@ export const gotOrders = orders => ({
   orders
 })
 
+export const gotCart = cart => ({
+  type: GOT_CART,
+  cart
+})
+
+export const deleteFriend = friendId => ({
+  type: DELETE_FRIEND,
+  friendId
+})
+export const addFriendAsGuest = (guestId, obj) => ({
+  type: GUEST_ADD,
+  pendingGuestOrder: obj,
+  id: guestId
+})
 //Thunk Creators
+
+export const getOrdersThunk = userId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/orders/complete/${userId}`)
+    dispatch(gotOrders(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const getCartThunk = userId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/orders/pending/${userId}`)
+    if (data) {
+      dispatch(gotCart(data))
+    } else {
+      dispatch(noFriends())
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const addAFriendThunk = (id, obj) => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}/add`, obj)
-    dispatch(addAFriendActionCreator(id, obj))
+    dispatch(getCartThunk(id))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const getOrdersThunk = userId => async dispatch => {
+export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/orders/${userId}`)
-    dispatch(gotOrders(data[0]))
+    const {data} = await axios.delete(
+      `/api/orders/delete/${orderId}/${friendId}`
+    )
+    dispatch(deleteFriend(friendId))
   } catch (error) {
-    next(error)
+    console.error(error)
   }
+}
+
+export const addGuestThunk = (id, obj) => dispatch => {
+  count++
+  console.log(obj)
+  localStorage.setItem(`item${count}`, JSON.stringify(obj))
+  dispatch(addFriendAsGuest(id, obj))
 }
 
 //Initial State
 const initialSate = {
-  addtoCart: [],
-    orders: {}
-
+  loading: true,
+  orders: [],
+  cart: [],
+  guestCart: localStorage
 }
 
 //Reducer
 
 export default function(state = initialSate, action) {
   switch (action.type) {
-    case ADD_A_FRIEND:
+    case GOT_CART:
+      return {...state, cart: [...action.cart], loading: false}
+    case GOT_ORDERS:
+      return {...state, orders: [...action.orders]}
+    case DELETE_FRIEND:
       return {
         ...state,
-        addtoCart: [...state.addtoCart, action.pendingOrder]
+        cart: state.cart.filter(friend => friend.id !== action.friendId)
       }
-     case GOT_ORDERS:
-      return {...state, orders: {...action.orders}}
+    case NO_FRIENDS:
+      return {...state, cart: [], loading: false}
     default:
       return state
   }

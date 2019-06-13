@@ -10,10 +10,11 @@ class YourOrders extends React.Component {
   }
 
   render() {
+    console.log('this is the props.orders', this.props.orders)
     return (
       <div>
         <h1>This is where your orders will go</h1>
-        <h2>{this.props.orders.id}</h2>
+        <h2 />
       </div>
     )
   }
