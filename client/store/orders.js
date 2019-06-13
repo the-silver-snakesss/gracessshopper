@@ -2,24 +2,17 @@ import axios from 'axios'
 import history from '../history'
 
 //Action types
-const ADD_A_FRIEND = 'ADD_A_FRIEND'
 const GOT_ORDERS = 'GOT_ORDERS'
 const GOT_CART = 'GOT_CART'
 
 //Action Creators
-export const addAFriendActionCreator = (userId, obj) => ({
-  type: ADD_A_FRIEND,
-  pendingOrder: obj,
-  id: userId
-})
-
 export const gotOrders = orders => ({
   type: GOT_ORDERS,
   orders
 })
 
 export const gotCart = cart => ({
-  type: GOT_ORDERS,
+  type: GOT_CART,
   cart
 })
 
@@ -30,16 +23,16 @@ export const getOrdersThunk = userId => async dispatch => {
     const {data} = await axios.get(`/api/orders/complete/${userId}`)
     dispatch(gotOrders(data))
   } catch (error) {
-    next(error)
+    console.error(error)
   }
 }
 
 export const getCartThunk = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/pending/${userId}`)
-    dispatch(gotCart(data))
+    dispatch(gotCart(data[0].friends))
   } catch (error) {
-    next(error)
+    console.error(error)
   }
 }
 // still working on add friend thunk and get cart thunk relationship
@@ -54,6 +47,7 @@ export const addAFriendThunk = (id, obj) => async dispatch => {
 
 //Initial State
 const initialSate = {
+  loading: true,
   orders: [],
   cart: []
 }
@@ -62,11 +56,8 @@ const initialSate = {
 
 export default function(state = initialSate, action) {
   switch (action.type) {
-    case ADD_A_FRIEND:
-      return {
-        ...state,
-        addtoCart: [...state.addtoCart, action.pendingOrder]
-      }
+    case GOT_CART:
+      return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
       return {...state, orders: [...action.orders]}
     default:
