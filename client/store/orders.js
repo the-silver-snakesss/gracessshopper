@@ -5,16 +5,16 @@ import history from '../history'
 const ADD_A_FRIEND = 'ADD_A_FRIEND'
 
 //Action Creators
-export const addAFriendActionCreator = (id, obj) => ({
+export const addAFriendActionCreator = (userId, obj) => ({
   type: ADD_A_FRIEND,
   pendingOrder: obj,
-  id: id
+  id: userId
 })
 //Thunk Creators
 export const addAFriendThunk = (id, obj) => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}/add`, obj)
-    dispatch(addAFriendActionCreator(id))
+    dispatch(addAFriendActionCreator(id, obj))
   } catch (err) {
     console.error(err)
   }
@@ -22,7 +22,7 @@ export const addAFriendThunk = (id, obj) => async dispatch => {
 
 //Initial State
 const initialSate = {
-  addtoCart: {}
+  addtoCart: []
 }
 
 //Reducer
@@ -32,7 +32,7 @@ export default function(state = initialSate, action) {
     case ADD_A_FRIEND:
       return {
         ...state,
-        addtoCart: action.pendingOrder
+        addtoCart: [...state.addtoCart, action.pendingOrder]
       }
     default:
       return state

@@ -18,35 +18,28 @@ router.get('/', async (req, res, next) => {
 
 router.post('/:id/add', async (req, res, next) => {
   try {
-    // validate the user is logged in
-    // check order table before adding new instance
     const validate = await Order.findOne({
       where: {
         userId: req.params.id,
         status: 'pending'
       },
       include: [{model: Friend}],
-      plain: true,
+      returning: true,
       raw: true
     })
     if (validate) {
-      const [, added] = await Order_Friends.update(
-        {
-          quantity: 1
-        },
-        {
-          where: {orderId: validate.id},
-          returning: true,
-          plain: true
-        }
-      )
-      res.json(added)
+      const added = await Order_Friends.create({
+        quantity: 1,
+        orderId: validate.id,
+        friendId: req.body.id
+      })
+      res.status(201).json(added)
     } else {
       const addedFriend = await Order.create({
         status: 'pending',
         userId: req.params.id
       })
-      res.json(addedFriend)
+      res.status(201).json(addedFriend)
     }
   } catch (error) {
     next(error)
