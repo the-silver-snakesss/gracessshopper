@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk} from '../store/orders'
+import {getCartThunk, deleteFriendThunk} from '../store/orders'
 import {me} from '../store/user'
 
 class CartView extends React.Component {
@@ -34,7 +34,15 @@ class CartView extends React.Component {
                 <td>{friend.order_friends.quantity}</td>
                 <td>{friend.order_friends.quantity * friend.price}</td>
                 <td>
-                  <button type="button">x</button>
+                  <button
+                    type="button"
+                    className="deleteButton"
+                    onClick={() => {
+                      this.props.delete(friend.order_friends.orderId, friend.id)
+                    }}
+                  >
+                    x
+                  </button>
                 </td>
               </tr>
             ))}
@@ -62,7 +70,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getCartThunk: userId => dispatch(getCartThunk(userId)),
-  me: () => dispatch(me())
+  me: () => dispatch(me()),
+  delete: (orderId, friendId) => dispatch(deleteFriendThunk(orderId, friendId))
 })
 
 export default connect(mapState, mapDispatch)(CartView)

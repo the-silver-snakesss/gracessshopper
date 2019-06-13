@@ -4,6 +4,7 @@ import history from '../history'
 //Action types
 const GOT_ORDERS = 'GOT_ORDERS'
 const GOT_CART = 'GOT_CART'
+const DELETE_FRIEND = 'DELETE_FRIEND'
 
 //Action Creators
 export const gotOrders = orders => ({
@@ -14,6 +15,11 @@ export const gotOrders = orders => ({
 export const gotCart = cart => ({
   type: GOT_CART,
   cart
+})
+
+export const deleteFriend = friendId => ({
+  type: DELETE_FRIEND,
+  friendId
 })
 
 //Thunk Creators
@@ -35,13 +41,24 @@ export const getCartThunk = userId => async dispatch => {
     console.error(error)
   }
 }
-// still working on add friend thunk and get cart thunk relationship
+
 export const addAFriendThunk = (id, obj) => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}/add`, obj)
     dispatch(getCartThunk(id))
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
+  try {
+    const {data} = await axios.delete(
+      `/api/orders/delete/${orderId}/${friendId}`
+    )
+    dispatch(deleteFriend(friendId))
+  } catch (error) {
+    console.error(error)
   }
 }
 
@@ -60,6 +77,11 @@ export default function(state = initialSate, action) {
       return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
       return {...state, orders: [...action.orders]}
+    case DELETE_FRIEND:
+      return {
+        ...state,
+        cart: state.cart.filter(friend => friend.id !== action.friendId)
+      }
     default:
       return state
   }
