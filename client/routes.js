@@ -10,7 +10,8 @@ import {
   InventoryList,
   SingleFriendView,
   YourOrders,
-  CartView
+  CartView,
+  GuestCart
 } from './components'
 import {me} from './store'
 
@@ -32,7 +33,9 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/welcome" component={Welcome} />
         <Route path="/all" component={InventoryList} />
+        <Route path="/guestCart" component={GuestCart} />
         <Route path="/friends/:id" component={SingleFriendView} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

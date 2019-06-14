@@ -7,17 +7,29 @@ import SingleFriend from './single-friend'
 class SingleFriendView extends React.Component {
   constructor() {
     super()
+    this.state = {
+      itemsArray: []
+    }
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     const friendId = Number(this.props.match.params.id)
     this.props.getFriend(friendId)
     this.props.me()
+    if (!localStorage.cart) {
+      localStorage.setItem('cart', [])
+    }
   }
-  handleClick() {
-    this.props.addtoCartAsGuest(this.props.user.id, this.props.selectedFriend)
-    //console.log(this.props.guestCart)
-    //localStorage.setItem('cart', JSON.stringify(this.props.guestCart))
+  async handleClick() {
+    let data = JSON.stringify(this.props.selectedFriend)
+    await this.setState(prevState => ({
+      itemsArray: [...prevState.itemsArray, data]
+    }))
+
+    await this.props.addtoCartAsGuest(
+      this.props.selectedFriend,
+      this.state.itemsArray
+    )
   }
   render() {
     let guestID = 0
