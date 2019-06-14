@@ -12,7 +12,7 @@ const Order = db.define('order', {
     type: Sequelize.STRING
   },
   address: {
-    type: Sequelize.text
+    type: Sequelize.TEXT
   }
 })
 
