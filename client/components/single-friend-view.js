@@ -4,6 +4,9 @@ import {getFriend} from '../store/friends'
 import {addAFriendThunk, addGuestThunk} from '../store/orders'
 import {me} from '../store/user'
 import SingleFriend from './single-friend'
+
+const itemsArray = []
+
 class SingleFriendView extends React.Component {
   constructor() {
     super()
@@ -15,12 +18,16 @@ class SingleFriendView extends React.Component {
     this.props.me()
   }
   handleClick() {
-    this.props.addtoCartAsGuest(this.props.user.id, this.props.selectedFriend)
-    //console.log(this.props.guestCart)
-    //localStorage.setItem('cart', JSON.stringify(this.props.guestCart))
+    let data = JSON.stringify(this.props.selectedFriend)
+    itemsArray.push({guest: true, item: data})
+
+    this.props.addtoCartAsGuest(
+      this.props.user.id,
+      this.props.selectedFriend,
+      itemsArray
+    )
   }
   render() {
-    let guestID = 0
     const {
       image,
       name,
