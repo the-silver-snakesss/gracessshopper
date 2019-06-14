@@ -9,8 +9,14 @@ const GOT_CART = 'GOT_CART'
 const DELETE_FRIEND = 'DELETE_FRIEND'
 const NO_FRIENDS = 'NO_FRIENDS'
 const GUEST_ADD = 'GUEST_ADD'
+const COMPLETE_ORDER = 'COMPLETE_ORDER'
 
 //Action Creators
+export const completeOrder = orderId => ({
+  type: COMPLETE_ORDER,
+  orderId
+})
+
 export const noFriends = () => ({
   type: NO_FRIENDS
 })
@@ -85,6 +91,14 @@ export const addGuestThunk = (id, obj) => dispatch => {
   dispatch(addFriendAsGuest(id, obj))
 }
 
+export const completeOrderThunk = (info, userId) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/orders/checkout/${userId}`, info)
+    dispatch(getCartThunk(userId))
+  } catch (error) {
+    console.error(error)
+  }
+}
 //Initial State
 const initialSate = {
   loading: true,

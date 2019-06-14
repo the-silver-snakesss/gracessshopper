@@ -1,4 +1,7 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {completeOrderThunk} from '../store/orders'
+import {me} from '../store/user'
 
 class CheckoutForm extends React.Component {
   constructor() {
@@ -8,6 +11,9 @@ class CheckoutForm extends React.Component {
       lastName: '',
       address: ''
     }
+  }
+  async componentDidMount() {
+    await this.props.me()
   }
   render() {
     return (
@@ -35,8 +41,30 @@ class CheckoutForm extends React.Component {
             onChange={evt => this.setState({address: evt.target.value})}
           />
         </form>
+        <button
+          type="button"
+          onClick={() => {
+            this.props.completeOrder(this.state, this.props.user.id)
+            this.setState({
+              firstName: '',
+              lastName: '',
+              address: ''
+            })
+          }}
+        >
+          Complete Checkout
+        </button>
       </div>
     )
   }
 }
-export default CheckoutForm
+const mapState = state => ({
+  user: state.user
+})
+
+const mapDispatch = dispatch => ({
+  completeOrder: (info, id) => dispatch(completeOrderThunk(info, id)),
+  me: () => dispatch(me())
+})
+
+export default connect(mapState, mapDispatch)(CheckoutForm)

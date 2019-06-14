@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk, deleteFriendThunk} from '../store/orders'
 import {me} from '../store/user'
+import {Link} from 'react-router-dom'
 
 class CartView extends React.Component {
   async componentDidMount() {
@@ -56,7 +57,9 @@ class CartView extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button type="button">Chickity-CheckOut</button>
+        <button type="button">
+          <Link to="/checkout">Chickity-CheckOut</Link>
+        </button>
       </div>
     )
   }
