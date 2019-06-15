@@ -8,6 +8,8 @@ const DELETE_FRIEND = 'DELETE_FRIEND'
 const NO_FRIENDS = 'NO_FRIENDS'
 const GUEST_ADD = 'GUEST_ADD'
 
+let count = 0
+
 //Action Creators
 export const noFriends = () => ({
   type: NO_FRIENDS
@@ -27,10 +29,9 @@ export const deleteFriend = friendId => ({
   type: DELETE_FRIEND,
   friendId
 })
-export const addFriendAsGuest = (guestId, obj) => ({
+export const addFriendAsGuest = obj => ({
   type: GUEST_ADD,
-  pendingGuestOrder: obj,
-  id: guestId
+  pendingGuestOrder: obj
 })
 //Thunk Creators
 
@@ -76,9 +77,21 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
   }
 }
 
-export const addGuestThunk = (id, obj, arr) => dispatch => {
-  localStorage.setItem('cart', JSON.stringify(arr))
-  dispatch(addFriendAsGuest(id, obj))
+export const addGuestThunk = obj => dispatch => {
+  count++
+  let cart = Object.values(localStorage)
+
+  // you want to stop a user from adding more of one item
+  // user should be able to continue shopping uninterrupted
+  if (cart.length !== 0) {
+    if (JSON.parse(cart).id === obj.id) {
+      alert('Sorry try adding a different friend')
+      return null
+    }
+  }
+
+  localStorage.setItem(`item${count}`, JSON.stringify(obj))
+  dispatch(addFriendAsGuest(obj))
 }
 
 //Initial State
@@ -86,7 +99,7 @@ const initialSate = {
   loading: true,
   orders: [],
   cart: [],
-  guestCart: localStorage
+  guestCart: Object.values(localStorage)
 }
 
 //Reducer

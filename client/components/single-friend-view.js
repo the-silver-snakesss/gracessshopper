@@ -5,11 +5,10 @@ import {addAFriendThunk, addGuestThunk} from '../store/orders'
 import {me} from '../store/user'
 import SingleFriend from './single-friend'
 
-const itemsArray = []
-
 class SingleFriendView extends React.Component {
   constructor() {
     super()
+
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
@@ -17,15 +16,9 @@ class SingleFriendView extends React.Component {
     this.props.getFriend(friendId)
     this.props.me()
   }
-  handleClick() {
-    let data = JSON.stringify(this.props.selectedFriend)
-    itemsArray.push({guest: true, item: data})
 
-    this.props.addtoCartAsGuest(
-      this.props.user.id,
-      this.props.selectedFriend,
-      itemsArray
-    )
+  handleClick() {
+    this.props.addtoCartAsGuest(this.props.selectedFriend)
   }
   render() {
     const {
@@ -80,13 +73,12 @@ class SingleFriendView extends React.Component {
 }
 const mapStateToProps = state => ({
   selectedFriend: state.friends.selectedFriend,
-  user: state.user,
-  guestCart: state.guestCart
+  user: state.user
 })
 const mapDispatchToProps = dispatch => ({
   getFriend: id => dispatch(getFriend(id)),
   addtoCart: (id, obj) => dispatch(addAFriendThunk(id, obj)),
   me: () => dispatch(me()),
-  addtoCartAsGuest: (id, obj) => dispatch(addGuestThunk(id, obj))
+  addtoCartAsGuest: obj => dispatch(addGuestThunk(obj))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SingleFriendView)
