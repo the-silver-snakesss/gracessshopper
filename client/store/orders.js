@@ -77,7 +77,10 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
 }
 
 export const addGuestThunk = obj => dispatch => {
+<<<<<<< HEAD
   debugger
+=======
+>>>>>>> 050a348d39d545d2192d2dd94a9dfe243ed41da2
   let cart = Object.values(localStorage)
 
   for (let i = 0; i < cart.length; i++) {
@@ -88,7 +91,7 @@ export const addGuestThunk = obj => dispatch => {
   }
   count++
 
-  localStorage.setItem(`item${count}`, JSON.stringify(obj))
+  localStorage.setItem(`item${count++}`, JSON.stringify(obj))
   dispatch(addFriendAsGuest(obj))
 }
 

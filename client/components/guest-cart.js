@@ -2,6 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 class GuestCart extends React.Component {
+  componentDidUpdate(prevProps) {
+    // was hoping this would trigger a update for us. I was trying to find more examples but I think this might work.
+    if (prevProps.guestCart !== this.props.guestCart) {
+      console.log(this.props.guestCart, 'this is your component')
+    }
+  }
   render() {
     let total = this.props.guestCart.reduce((accum, curr) => {
       return accum + JSON.parse(curr).price * 1
@@ -44,7 +50,38 @@ class GuestCart extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button type="button">Chickity-CheckOut</button>
+        <div className="buttons-container">
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push('/guest_checkout')
+              }}
+            >
+              CheckOut as Guest
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push('/signup')
+              }}
+            >
+              Sign Up
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push('/all')
+              }}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
