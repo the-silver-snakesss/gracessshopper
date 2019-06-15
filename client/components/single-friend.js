@@ -4,7 +4,7 @@ const SingleFriend = props => {
   const {name, image, price, id} = props
   return (
     <div className="thumbnail">
-      <img src={image} />
+      <img className="friend-image" src={image} alt="friend-image" />
       <Link to={`/friends/${id}`}>
         <h3>{name}</h3>
       </Link>

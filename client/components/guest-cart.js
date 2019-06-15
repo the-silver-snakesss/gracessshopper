@@ -44,7 +44,33 @@ class GuestCart extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button type="button">Chickity-CheckOut</button>
+        <div className="buttons-container">
+          <div>
+            <button type="button">CheckOut as Guest</button>
+          </div>
+          <div>
+            <button
+              type="button"
+              type="button"
+              onClick={() => {
+                this.props.history.push('/signup')
+              }}
+            >
+              Sign Up
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              type="button"
+              onClick={() => {
+                this.props.history.push('/all')
+              }}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
       </div>
     )
   }

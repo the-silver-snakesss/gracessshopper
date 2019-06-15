@@ -17,8 +17,8 @@ class SingleFriendView extends React.Component {
     this.props.me()
   }
 
-  handleClick() {
-    this.props.addtoCartAsGuest(this.props.selectedFriend)
+  async handleClick() {
+    await this.props.addtoCartAsGuest(this.props.selectedFriend)
   }
   render() {
     const {

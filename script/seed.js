@@ -99,7 +99,7 @@ const seed = async () => {
       price: 18.95,
       instock: 100,
       image:
-        '“https://i.kinja-img.com/gawker-media/image/upload/s--IARvqZA1--/c_scale,f_auto,fl_progressive,q_80,w_800/xwavtb38s3qkxds4cnop.jpg'
+        'https://i.kinja-img.com/gawker-media/image/upload/s--IARvqZA1--/c_scale,f_auto,fl_progressive,q_80,w_800/xwavtb38s3qkxds4cnop.jpg'
     })
     const friend8 = await Friend.create({
       name: 'Carol',
