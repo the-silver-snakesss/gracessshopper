@@ -29,9 +29,8 @@ export const deleteFriend = friendId => ({
   type: DELETE_FRIEND,
   friendId
 })
-export const addFriendAsGuest = obj => ({
-  type: GUEST_ADD,
-  pendingGuestOrder: obj
+export const addFriendAsGuest = () => ({
+  type: GUEST_ADD
 })
 //Thunk Creators
 
@@ -78,7 +77,7 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
 }
 
 export const addGuestThunk = obj => dispatch => {
-  count++
+  debugger
   let cart = Object.values(localStorage)
 
   for (let i = 0; i < cart.length; i++) {
@@ -87,6 +86,7 @@ export const addGuestThunk = obj => dispatch => {
       return null
     }
   }
+  count++
 
   localStorage.setItem(`item${count}`, JSON.stringify(obj))
   dispatch(addFriendAsGuest(obj))
@@ -104,6 +104,8 @@ const initialSate = {
 
 export default function(state = initialSate, action) {
   switch (action.type) {
+    case GUEST_ADD:
+      return {...state, guestCart: Object.values(localStorage)}
     case GOT_CART:
       return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
