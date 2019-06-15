@@ -34,6 +34,27 @@ router.get('/pending/:userId', async (req, res, next) => {
   }
 })
 
+router.post('/guestcheckout', async (req, res, next) => {
+  console.log('REQ BODY', req.body)
+  let {dataValues} = await Order.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    address: req.body.address,
+    status: 'complete'
+  })
+  res.status(201).json(dataValues)
+})
+
+router.post('/guestcheckout/:orderId', async (req, res, next) => {
+  console.log('posting friend')
+  await Order_Friends.create({
+    quantity: 1,
+    orderId: req.params.orderId,
+    friendId: req.body.friendId
+  })
+  res.sendStatus(201)
+})
+
 router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
   try {
     await Order_Friends.destroy({

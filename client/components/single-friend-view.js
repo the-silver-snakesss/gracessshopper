@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getFriend} from '../store/friends'
-import {addAFriendThunk, addGuestThunk} from '../store/orders'
+import {addAFriendThunk} from '../store/orders'
+import {addGuestThunk} from '../store/guest'
 import {me} from '../store/user'
 import SingleFriend from './single-friend'
 

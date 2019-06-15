@@ -4,12 +4,12 @@ import {connect} from 'react-redux'
 class GuestCart extends React.Component {
   componentDidUpdate(prevProps) {
     // was hoping this would trigger a update for us. I was trying to find more examples but I think this might work.
-    if (prevProps.guestCart !== this.props.guestCart) {
-      console.log(this.props.guestCart, 'this is your component')
+    if (prevProps.guest !== this.props.guest) {
+      console.log(this.props.guest, 'this is your component')
     }
   }
   render() {
-    let total = this.props.guestCart.reduce((accum, curr) => {
+    let total = this.props.guest.reduce((accum, curr) => {
       return accum + JSON.parse(curr).price * 1
     }, 0)
     return (
@@ -24,10 +24,10 @@ class GuestCart extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {!this.props.guestCart ? (
-              <div>[]</div>
+            {!this.props.guest ? (
+              <div />
             ) : (
-              this.props.guestCart.map(friend => (
+              this.props.guest.map(friend => (
                 <tr key={JSON.parse(friend).id}>
                   <td>{JSON.parse(friend).name}</td>
                   <td>1</td>
@@ -87,7 +87,7 @@ class GuestCart extends React.Component {
   }
 }
 const mapState = state => ({
-  guestCart: state.orders.guestCart
+  guest: state.guest
 })
 
 export default connect(mapState, null)(GuestCart)
