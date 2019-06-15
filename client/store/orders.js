@@ -81,10 +81,8 @@ export const addGuestThunk = obj => dispatch => {
   count++
   let cart = Object.values(localStorage)
 
-  // you want to stop a user from adding more of one item
-  // user should be able to continue shopping uninterrupted
-  if (cart.length !== 0) {
-    if (JSON.parse(cart).id === obj.id) {
+  for (let i = 0; i < cart.length; i++) {
+    if (JSON.parse(cart[i]).id === obj.id) {
       alert('Sorry try adding a different friend')
       return null
     }

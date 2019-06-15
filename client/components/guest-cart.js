@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 
 class GuestCart extends React.Component {
   render() {
+    let total = this.props.guestCart.reduce((accum, curr) => {
+      return accum + JSON.parse(curr).price * 1
+    }, 0)
     return (
       <div>
         <table>
@@ -21,7 +24,8 @@ class GuestCart extends React.Component {
               this.props.guestCart.map(friend => (
                 <tr key={JSON.parse(friend).id}>
                   <td>{JSON.parse(friend).name}</td>
-                  <td>{JSON.parse(friend).price}</td>
+                  <td>1</td>
+                  <td>{1 * JSON.parse(friend).price}</td>
                   <td>
                     <button type="button" className="deleteButton">
                       x
@@ -30,6 +34,14 @@ class GuestCart extends React.Component {
                 </tr>
               ))
             )}
+          </tbody>
+          <hr />
+          <tbody>
+            <tr>
+              <td>Total:</td>
+              <td />
+              <td>{total}</td>
+            </tr>
           </tbody>
         </table>
         <button type="button">Chickity-CheckOut</button>
