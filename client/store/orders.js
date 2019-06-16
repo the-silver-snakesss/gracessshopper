@@ -6,9 +6,6 @@ const GOT_ORDERS = 'GOT_ORDERS'
 const GOT_CART = 'GOT_CART'
 const DELETE_FRIEND = 'DELETE_FRIEND'
 const NO_FRIENDS = 'NO_FRIENDS'
-const GUEST_ADD = 'GUEST_ADD'
-
-let count = 0
 
 //Action Creators
 export const noFriends = () => ({
@@ -29,10 +26,7 @@ export const deleteFriend = friendId => ({
   type: DELETE_FRIEND,
   friendId
 })
-export const addFriendAsGuest = obj => ({
-  type: GUEST_ADD,
-  pendingGuestOrder: obj
-})
+
 //Thunk Creators
 
 export const getOrdersThunk = userId => async dispatch => {
@@ -77,26 +71,11 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
   }
 }
 
-export const addGuestThunk = obj => dispatch => {
-  let cart = Object.values(localStorage)
-
-  for (let i = 0; i < cart.length; i++) {
-    if (JSON.parse(cart[i]).id === obj.id) {
-      alert('Sorry try adding a different friend')
-      return null
-    }
-  }
-
-  localStorage.setItem(`item${count++}`, JSON.stringify(obj))
-  dispatch(addFriendAsGuest(obj))
-}
-
 //Initial State
 const initialSate = {
   loading: true,
   orders: [],
-  cart: [],
-  guestCart: Object.values(localStorage)
+  cart: []
 }
 
 //Reducer

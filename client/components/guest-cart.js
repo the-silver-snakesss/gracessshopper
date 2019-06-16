@@ -2,12 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 class GuestCart extends React.Component {
-  componentDidUpdate(prevProps) {
-    // was hoping this would trigger a update for us. I was trying to find more examples but I think this might work.
-    if (prevProps.guest !== this.props.guest) {
-      console.log(this.props.guest, 'this is your component')
-    }
-  }
   render() {
     let total = this.props.guest.reduce((accum, curr) => {
       return accum + JSON.parse(curr).price * 1

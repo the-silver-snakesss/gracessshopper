@@ -21,7 +21,6 @@ class GuestCheckoutForm extends React.Component {
   }
 
   handleSubmit(evt) {
-    console.log('handling submit')
     evt.preventDefault()
     this.props.checkout(this.state)
     this.setState({
@@ -64,6 +63,6 @@ class GuestCheckoutForm extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  checkout: () => dispatch(guestCheckout())
+  checkout: obj => dispatch(guestCheckout(obj))
 })
 export default connect(null, mapDispatch)(GuestCheckoutForm)
