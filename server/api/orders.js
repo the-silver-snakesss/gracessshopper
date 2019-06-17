@@ -74,6 +74,39 @@ router.get('/pending/:userId', async (req, res, next) => {
   }
 })
 
+router.post('/guestcheckout', async (req, res, next) => {
+  let {dataValues} = await Order.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    address: req.body.address,
+    status: 'complete'
+  })
+  res.status(201).json(dataValues)
+})
+
+router.post('/guestcheckout/:orderId', async (req, res, next) => {
+  await Order_Friends.create({
+    quantity: 1,
+    orderId: req.params.orderId,
+    friendId: req.body.friendId
+  })
+  res.sendStatus(201)
+})
+
+router.put('/guestcheckout/stock/:friendId', async (req, res, next) => {
+  const newStock = req.body.stock - 1
+  let [, updatedFriend] = await Friend.update(
+    {instock: newStock},
+    {
+      returning: true,
+      where: {
+        id: req.params.friendId
+      }
+    }
+  )
+  res.status(202).json(updatedFriend)
+})
+
 router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
   try {
     await Order_Friends.destroy({

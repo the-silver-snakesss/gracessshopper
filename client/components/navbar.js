@@ -28,6 +28,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/login">Login</Link>
           <Link to="/all">Shop</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/guestCart">
+            <img
+              className="cart-icon"
+              src="assets/icons/cart.png"
+              alt="cart icon"
+            />
+          </Link>
+          <Link to="#" className="circle">
+            <h6 className="cart-count">{localStorage.length}</h6>
+          </Link>
         </div>
       )}
     </nav>
