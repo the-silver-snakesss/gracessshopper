@@ -9,20 +9,14 @@ const seed = async () => {
 
     // USERS
     const user1 = await User.create({
-      firstName: 'Cody',
-      lastName: 'Bar',
       email: 'cody@email.com',
       password: '123'
     })
     const user2 = await User.create({
-      firstName: 'Murphy',
-      lastName: 'Law',
       email: 'murphy@email.com',
       password: '123'
     })
     const user3 = await User.create({
-      firstName: 'Ally',
-      lastName: 'Guy',
       email: 'ally@gmail.com',
       password: '123'
     })

@@ -6,8 +6,15 @@ const GOT_ORDERS = 'GOT_ORDERS'
 const GOT_CART = 'GOT_CART'
 const DELETE_FRIEND = 'DELETE_FRIEND'
 const NO_FRIENDS = 'NO_FRIENDS'
+const COMPLETE_ORDER = 'COMPLETE_ORDER'
+
 
 //Action Creators
+export const completeOrder = orderId => ({
+  type: COMPLETE_ORDER,
+  orderId
+})
+
 export const noFriends = () => ({
   type: NO_FRIENDS
 })
@@ -66,6 +73,16 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
       `/api/orders/delete/${orderId}/${friendId}`
     )
     dispatch(deleteFriend(friendId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+export const completeOrderThunk = (info, userId) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/orders/checkout/${userId}`, info)
+    dispatch(getCartThunk(userId))
   } catch (error) {
     console.error(error)
   }
