@@ -1,15 +1,13 @@
 import axios from 'axios'
 import history from '../history'
 
-let count = 0
-
 //Action types
 const GOT_ORDERS = 'GOT_ORDERS'
 const GOT_CART = 'GOT_CART'
 const DELETE_FRIEND = 'DELETE_FRIEND'
 const NO_FRIENDS = 'NO_FRIENDS'
-const GUEST_ADD = 'GUEST_ADD'
 const COMPLETE_ORDER = 'COMPLETE_ORDER'
+
 
 //Action Creators
 export const completeOrder = orderId => ({
@@ -35,11 +33,7 @@ export const deleteFriend = friendId => ({
   type: DELETE_FRIEND,
   friendId
 })
-export const addFriendAsGuest = (guestId, obj) => ({
-  type: GUEST_ADD,
-  pendingGuestOrder: obj,
-  id: guestId
-})
+
 //Thunk Creators
 
 export const getOrdersThunk = userId => async dispatch => {
@@ -84,12 +78,6 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
   }
 }
 
-export const addGuestThunk = (id, obj) => dispatch => {
-  count++
-  console.log(obj)
-  localStorage.setItem(`item${count}`, JSON.stringify(obj))
-  dispatch(addFriendAsGuest(id, obj))
-}
 
 export const completeOrderThunk = (info, userId) => async dispatch => {
   try {
@@ -99,12 +87,12 @@ export const completeOrderThunk = (info, userId) => async dispatch => {
     console.error(error)
   }
 }
+
 //Initial State
 const initialSate = {
   loading: true,
   orders: [],
-  cart: [],
-  guestCart: localStorage
+  cart: []
 }
 
 //Reducer
