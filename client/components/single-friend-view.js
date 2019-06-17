@@ -4,6 +4,7 @@ import {getFriend} from '../store/friends'
 import {addAFriendThunk} from '../store/orders'
 import {addGuestThunk} from '../store/guest'
 import {me} from '../store/user'
+
 import SingleFriend from './single-friend'
 
 class SingleFriendView extends React.Component {
