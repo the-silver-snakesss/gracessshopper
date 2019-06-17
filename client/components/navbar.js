@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>
+    <h1 className="navbar-header">
       Imagine{' '}
       <img src="https://previews.123rf.com/images/andreahast/andreahast1106/andreahast110600004/9730759-pink-flower-of-gerber-isolated.jpg" />{' '}
       Nation
@@ -26,8 +26,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
-          <Link to="/all">Shop</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/all">Shop</Link>
           <Link to="/guestCart">
             <img
               className="cart-icon"
