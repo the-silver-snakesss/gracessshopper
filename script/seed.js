@@ -9,20 +9,14 @@ const seed = async () => {
 
     // USERS
     const user1 = await User.create({
-      firstName: 'Cody',
-      lastName: 'Bar',
       email: 'cody@email.com',
       password: '123'
     })
     const user2 = await User.create({
-      firstName: 'Murphy',
-      lastName: 'Law',
       email: 'murphy@email.com',
       password: '123'
     })
     const user3 = await User.create({
-      firstName: 'Ally',
-      lastName: 'Guy',
       email: 'ally@gmail.com',
       password: '123'
     })
@@ -99,7 +93,7 @@ const seed = async () => {
       price: 18.95,
       instock: 100,
       image:
-        '“https://i.kinja-img.com/gawker-media/image/upload/s--IARvqZA1--/c_scale,f_auto,fl_progressive,q_80,w_800/xwavtb38s3qkxds4cnop.jpg'
+        'https://i.kinja-img.com/gawker-media/image/upload/s--IARvqZA1--/c_scale,f_auto,fl_progressive,q_80,w_800/xwavtb38s3qkxds4cnop.jpg'
     })
     const friend8 = await Friend.create({
       name: 'Carol',
