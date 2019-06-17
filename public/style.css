@@ -50,12 +50,9 @@ h1 img {
 }
 
 a.circle {
-  position: absolute;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  right: 76%;
-  top: 11%;
   padding: 0.1em;
   color: white;
   color: red;
@@ -68,4 +65,12 @@ a.circle {
   display: flex;
   justify-content: space-between;
   flex-basis: 20px;
+}
+
+.navbar-header {
+  text-align: center;
+}
+
+.right-navbar {
+  text-align: right;
 }
