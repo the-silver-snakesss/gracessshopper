@@ -53,6 +53,20 @@ router.post('/guestcheckout/:orderId', async (req, res, next) => {
   res.sendStatus(201)
 })
 
+router.put('/guestcheckout/stock/:friendId', async (req, res, next) => {
+  const newStock = req.body.stock - 1
+  let [, updatedFriend] = await Friend.update(
+    {instock: newStock},
+    {
+      returning: true,
+      where: {
+        id: req.params.friendId
+      }
+    }
+  )
+  res.status(202).json(updatedFriend)
+})
+
 router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
   try {
     await Order_Friends.destroy({

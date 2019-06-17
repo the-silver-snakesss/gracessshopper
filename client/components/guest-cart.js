@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {removeCartItem} from '../store/guest'
 
 class GuestCart extends React.Component {
   render() {
@@ -21,18 +22,25 @@ class GuestCart extends React.Component {
             {!this.props.guest ? (
               <div />
             ) : (
-              this.props.guest.map(friend => (
-                <tr key={JSON.parse(friend).id}>
-                  <td>{JSON.parse(friend).name}</td>
-                  <td>1</td>
-                  <td>{1 * JSON.parse(friend).price}</td>
-                  <td>
-                    <button type="button" className="deleteButton">
-                      x
-                    </button>
-                  </td>
-                </tr>
-              ))
+              this.props.guest.map(friend => {
+                friend = JSON.parse(friend)
+                return (
+                  <tr key={friend.id}>
+                    <td>{friend.name}</td>
+                    <td>1</td>
+                    <td>{1 * friend.price}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="deleteButton"
+                        onClick={() => this.props.remove(friend.id)}
+                      >
+                        x
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })
             )}
           </tbody>
           <hr />
@@ -84,4 +92,8 @@ const mapState = state => ({
   guest: state.guest
 })
 
-export default connect(mapState, null)(GuestCart)
+const mapDispatch = dispatch => ({
+  remove: friendId => dispatch(removeCartItem(friendId))
+})
+
+export default connect(mapState, mapDispatch)(GuestCart)
