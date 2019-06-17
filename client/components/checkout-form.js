@@ -43,6 +43,9 @@ class CheckoutForm extends React.Component {
         </form>
         <button
           type="button"
+          disabled={
+            !this.state.firstName || !this.state.lastName || !this.state.address
+          }
           onClick={() => {
             this.props.completeOrder(this.state, this.props.user.id)
             this.setState({

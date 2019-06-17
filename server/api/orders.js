@@ -24,8 +24,18 @@ router.put('/checkout/:userId', async (req, res, next) => {
         orderId: orderToUpdate.id
       }
     })
+    const friendFind = orderFriendtoUpdate.forEach(async function(obj) {
+      const friendToChange = await Friend.findOne({
+        where: {
+          id: obj.dataValues.friendId
+        }
+      })
 
-    console.log('this is the orderFRIENDS', orderFriendtoUpdate)
+      await friendToChange.update({
+        instock: friendToChange.instock - obj.dataValues.quantity
+      })
+    })
+
     res.status(202).json(updatedOrder)
   } catch (error) {
     next(error)
