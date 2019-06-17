@@ -25,6 +25,46 @@ const isAuth = async (req, res, next) => {
   }
 }
 
+router.put('/checkout/:userId', isAuth, async (req, res, next) => {
+  try {
+    const orderToUpdate = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        status: 'pending'
+      }
+    })
+    if (!orderToUpdate) return res.sendStatus(404)
+
+    const updatedOrder = await orderToUpdate.update({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      address: req.body.address,
+      status: 'complete'
+    })
+
+    const orderFriendtoUpdate = await Order_Friends.findAll({
+      where: {
+        orderId: orderToUpdate.id
+      }
+    })
+    const friendFind = orderFriendtoUpdate.forEach(async function(obj) {
+      const friendToChange = await Friend.findOne({
+        where: {
+          id: obj.dataValues.friendId
+        }
+      })
+
+      await friendToChange.update({
+        instock: friendToChange.instock - obj.dataValues.quantity
+      })
+    })
+
+    res.status(202).json(updatedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/complete/:userId', isAuth, async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
@@ -74,6 +114,20 @@ router.post('/guestcheckout/:orderId', async (req, res, next) => {
     friendId: req.body.friendId
   })
   res.sendStatus(201)
+})
+
+router.put('/guestcheckout/stock/:friendId', async (req, res, next) => {
+  const newStock = req.body.stock - 1
+  let [, updatedFriend] = await Friend.update(
+    {instock: newStock},
+    {
+      returning: true,
+      where: {
+        id: req.params.friendId
+      }
+    }
+  )
+  res.status(202).json(updatedFriend)
 })
 
 router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
