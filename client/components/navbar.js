@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, cartCount}) => (
   <div>
     <h1>
       Imagine{' '}
@@ -17,10 +17,19 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/all">Shop</Link>
-          <Link to="/cart">Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/cart">
+            <img
+              className="cart-icon"
+              src="/assets/icons/cart.png"
+              alt="cart icon"
+            />
+          </Link>
+          <Link to="#" className="circle">
+            <h6 className="cart-count">{0}</h6>
+          </Link>
         </div>
       ) : (
         <div>
@@ -31,12 +40,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/guestCart">
             <img
               className="cart-icon"
-              src="assets/icons/cart.png"
+              src="/assets/icons/cart.png"
               alt="cart icon"
             />
           </Link>
           <Link to="#" className="circle">
-            <h6 className="cart-count">{localStorage.length}</h6>
+            <h6 className="cart-count">{cartCount}</h6>
           </Link>
         </div>
       )}
@@ -50,7 +59,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cartCount: state.guest.cartCount
   }
 }
 
@@ -69,5 +79,6 @@ export default connect(mapState, mapDispatch)(Navbar)
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  cartCount: PropTypes.number
 }

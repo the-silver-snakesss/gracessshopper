@@ -4,8 +4,10 @@ const GUEST_ADD = 'GUEST_ADD'
 
 let count = 0
 
-export const addFriendAsGuest = () => ({
-  type: GUEST_ADD
+export const addFriendAsGuest = (obj, num) => ({
+  type: GUEST_ADD,
+  friend: obj,
+  cartCount: num
 })
 
 export const clearCart = () => dispatch => {
@@ -24,7 +26,7 @@ export const addGuestThunk = obj => dispatch => {
   }
 
   localStorage.setItem(`item${count++}`, JSON.stringify(obj))
-  dispatch(addFriendAsGuest(obj))
+  dispatch(addFriendAsGuest(obj, localStorage.length))
 }
 
 export const guestCheckout = formInfo => async dispatch => {
@@ -53,10 +55,18 @@ export const removeCartItem = friendId => dispatch => {
   dispatch(addFriendAsGuest())
 }
 
-export default function(state = Object.values(localStorage), action) {
+const initialState = {
+  cart: []
+}
+
+export default function(state = initialState, action) {
   switch (action.type) {
     case GUEST_ADD:
-      return [...Object.values(localStorage)]
+      return {
+        ...state,
+        cart: [...state.cart, action.friend],
+        cartCount: action.cartCount
+      }
     default:
       return state
   }

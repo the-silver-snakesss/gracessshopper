@@ -55,12 +55,18 @@ a.circle {
   height: 10px;
   border-radius: 50%;
   right: 76%;
-  top: 11%;
+  top: 10%;
   padding: 0.1em;
   color: white;
   color: red;
   background: red;
   border-style: solid;
+}
+
+@media only screen and (max-width: 820px) {
+  a.circle {
+    right: 78%;
+  }
 }
 
 .buttons-container {

@@ -5,7 +5,7 @@ import {removeCartItem} from '../store/guest'
 class GuestCart extends React.Component {
   render() {
     let total = this.props.guest.reduce((accum, curr) => {
-      return accum + JSON.parse(curr).price * 1
+      return accum + curr.price * 1
     }, 0)
     return (
       <div>
@@ -23,7 +23,6 @@ class GuestCart extends React.Component {
               <div />
             ) : (
               this.props.guest.map(friend => {
-                friend = JSON.parse(friend)
                 return (
                   <tr key={friend.id}>
                     <td>{friend.name}</td>
@@ -89,7 +88,7 @@ class GuestCart extends React.Component {
   }
 }
 const mapState = state => ({
-  guest: state.guest
+  guest: state.guest.cart
 })
 
 const mapDispatch = dispatch => ({

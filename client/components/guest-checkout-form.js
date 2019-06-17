@@ -55,7 +55,16 @@ class GuestCheckoutForm extends React.Component {
             value={this.state.address}
             onChange={evt => this.handleChange(evt)}
           />
-          <button type="submit">Place Order</button>
+          <button
+            type="submit"
+            disabled={
+              !this.state.firstName ||
+              !this.state.lastName ||
+              !this.state.address
+            }
+          >
+            Place Order
+          </button>
         </form>
       </div>
     )
