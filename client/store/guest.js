@@ -22,7 +22,7 @@ export const addGuestThunk = obj => dispatch => {
       return null
     }
   }
-
+  obj.quantity = 1
   localStorage.setItem(`item${count++}`, JSON.stringify(obj))
   dispatch(addFriendAsGuest(obj))
 }
@@ -48,6 +48,18 @@ export const removeCartItem = friendId => dispatch => {
     let friendObj = JSON.parse(friend[1])
     if (friendObj.id === friendId) {
       localStorage.removeItem(friend[0])
+    }
+  })
+  dispatch(addFriendAsGuest())
+}
+
+export const editQuantity = (friendId, qty) => dispatch => {
+  let cart = Object.entries(localStorage)
+  cart.forEach(friend => {
+    let friendObj = JSON.parse(friend[1])
+    if (friendObj.id === friendId) {
+      friendObj.quantity = qty
+      localStorage.setItem(friend[0], JSON.stringify(friendObj))
     }
   })
   dispatch(addFriendAsGuest())

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {removeCartItem} from '../store/guest'
+import {removeCartItem, editQuantity} from '../store/guest'
 
 class GuestCart extends React.Component {
   constructor() {
@@ -11,10 +11,9 @@ class GuestCart extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    })
+  handleChange(evt, friendId) {
+    let qty = evt.target.value
+    this.props.editQty(friendId, qty)
   }
 
   render() {
@@ -46,8 +45,10 @@ class GuestCart extends React.Component {
                         type="number"
                         name="quantity"
                         className="quantity"
-                        value={this.state.quantity}
-                        onChange={evt => this.handleChange(evt)}
+                        value={friend.quantity}
+                        onChange={(evt, friendId = friend.id) =>
+                          this.handleChange(evt, friendId)
+                        }
                       />
                     </td>
                     <td>{1 * friend.price}</td>
@@ -115,7 +116,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  remove: friendId => dispatch(removeCartItem(friendId))
+  remove: friendId => dispatch(removeCartItem(friendId)),
+  editQty: (friendId, qty) => dispatch(editQuantity(friendId, qty))
 })
 
 export default connect(mapState, mapDispatch)(GuestCart)
