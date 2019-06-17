@@ -18,43 +18,39 @@ class YourOrders extends React.Component {
     return (
       <div>
         <h1>Your Past Orders</h1>
-        {this.props.orders.map(order => (
-          <div key={order.id}>
-            <p>Order Number:</p>
-            <p>{order.id}</p>
-            <p>Order Address:</p>
-            <p>{order.address}</p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Qty</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.friends.map(friend => (
-                  <tr key={friend.id}>
-                    <td>{friend.name}</td>
-                    <td>{friend.order_friends.quantity}</td>
-                    <td>{friend.order_friends.quantity * friend.price}</td>
+        {this.props.orders.map(order => {
+          let total = order.friends.reduce((accum, curr) => {
+            return accum + curr.price * curr.order_friends.quantity
+          }, 0)
+          return (
+            <div key={order.id}>
+              <p>Order Number:</p>
+              <p>{order.id}</p>
+              <p>Order Address:</p>
+              <p>{order.address}</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
                   </tr>
-                ))}
-              </tbody>
-              <tbody>
-                <tr>
-                  <td>Total:</td>
-                  <td />
-                  <td>
-                    {order.friends.reduce((accum, curr) => {
-                      return accum + curr.price * curr.order_friends.quantity
-                    }, 0)}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ))}
+                </thead>
+                <tbody>
+                  {order.friends.map(friend => (
+                    <tr key={friend.id}>
+                      <td>{friend.name}</td>
+                      <td>{friend.order_friends.quantity}</td>
+                      <td>{friend.order_friends.quantity * friend.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p>Total:</p>
+              <p>{total}</p>
+            </div>
+          )
+        })}
       </div>
     )
   }
