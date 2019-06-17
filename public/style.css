@@ -70,3 +70,7 @@ a.circle {
 .navbar-header {
   text-align: center;
 }
+
+.right-navbar {
+  text-align: right;
+}
