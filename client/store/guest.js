@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const GUEST_ADD = 'GUEST_ADD'
+export const GUEST_ADD = 'GUEST_ADD'
 
 let count = 0
 
