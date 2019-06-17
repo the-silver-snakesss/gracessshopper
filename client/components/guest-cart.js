@@ -3,6 +3,20 @@ import {connect} from 'react-redux'
 import {removeCartItem} from '../store/guest'
 
 class GuestCart extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      quantity: 1
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
   render() {
     let total = this.props.guest.reduce((accum, curr) => {
       return accum + JSON.parse(curr).price * 1
@@ -27,7 +41,15 @@ class GuestCart extends React.Component {
                 return (
                   <tr key={friend.id}>
                     <td>{friend.name}</td>
-                    <td>1</td>
+                    <td>
+                      <input
+                        type="number"
+                        name="quantity"
+                        className="quantity"
+                        value={this.state.quantity}
+                        onChange={evt => this.handleChange(evt)}
+                      />
+                    </td>
                     <td>{1 * friend.price}</td>
                     <td>
                       <button

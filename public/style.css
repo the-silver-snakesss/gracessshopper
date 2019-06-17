@@ -69,3 +69,9 @@ a.circle {
   justify-content: space-between;
   flex-basis: 20px;
 }
+
+.quantity {
+  width: 3vw;
+  text-align: center;
+  margin: 0vh 1vw 0vh 1vw;
+}
