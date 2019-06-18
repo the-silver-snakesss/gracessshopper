@@ -51,27 +51,63 @@ router.put('/checkout/:userId', isAuth, async (req, res, next) => {
   }
 })
 
-router.get('/:status/:userId', isAuth, async (req, res, next) => {
+router.get('/complete/:userId', isAuth, async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
       where: {
         userId: req.params.userId,
-        status: req.params.status
+        status: 'complete'
       },
       include: [{model: Friend}]
     })
     console.log('This is user Orders', [userOrders])
     if (userOrders) {
-      if (req.params.status === 'pending') {
-        res.status(200).json(userOrders)
-      } else {
-        res.status(200).json([...userOrders])
-      }
+      res.status(200).json([...userOrders])
     } else res.json([])
   } catch (error) {
     next(error)
   }
 })
+
+router.get('/pending/:userId', isAuth, async (req, res, next) => {
+  try {
+    const [userOrders] = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        status: 'pending'
+      },
+      include: [{model: Friend}]
+    })
+
+    if (userOrders) {
+      res.status(200).json(userOrders.friends)
+    } else res.json([])
+  } catch (error) {
+    next(error)
+  }
+})
+
+// router.get('/:status/:userId', isAuth, async (req, res, next) => {
+//   try {
+//     const userOrders = await Order.findAll({
+//       where: {
+//         userId: req.params.userId,
+//         status: req.params.status
+//       },
+//       include: [{model: Friend}]
+//     })
+//     console.log('This is user Orders', [userOrders])
+//     if (userOrders) {
+//       if (req.params.status === 'pending') {
+//         res.status(200).json(userOrders)
+//       } else {
+//         res.status(200).json([...userOrders])
+//       }
+//     } else res.json([])
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 router.get('/:status/:userId', isAuth, async (req, res, next) => {
   try {
