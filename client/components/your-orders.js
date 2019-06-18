@@ -6,7 +6,7 @@ import {me} from '../store/user'
 class YourOrders extends React.Component {
   async componentDidMount() {
     await this.props.me()
-    await this.props.getOrders(this.props.user.id)
+    await this.props.getOrders('complete', this.props.user.id)
   }
 
   render() {
@@ -63,7 +63,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getOrders: userId => dispatch(getOrdersThunk(userId)),
+  getOrders: (status, userId) => dispatch(getOrdersThunk(status, userId)),
   me: () => dispatch(me())
 })
 
