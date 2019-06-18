@@ -74,8 +74,14 @@ router.get('/:status/:userId', async (req, res, next) => {
       },
       include: [{model: Friend}]
     })
+
     if (userOrders) {
-      res.status(200).json(userOrders.friends)
+      if (req.params.status === 'pending') {
+        res.status(200).json(userOrders.friends)
+      } else {
+        console.log('This is user Orders', userOrders.dataValues)
+        res.status(200).json([userOrders])
+      }
     } else res.json([])
   } catch (error) {
     next(error)
