@@ -2127,7 +2127,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  //Action types
 
 var GOT_ORDERS = 'GOT_ORDERS';
-var GOT_CART = 'GOT_CART';
 var DELETE_FRIEND = 'DELETE_FRIEND';
 var NO_FRIENDS = 'NO_FRIENDS';
 var COMPLETE_ORDER = 'COMPLETE_ORDER'; //Action Creators
@@ -2148,11 +2147,7 @@ var gotOrders = function gotOrders(orders) {
     type: GOT_ORDERS,
     orders: orders
   };
-}; // export const gotCart = cart => ({
-//   type: GOT_CART,
-//   cart
-// })
-
+};
 var deleteFriend = function deleteFriend(friendId) {
   return {
     type: DELETE_FRIEND,
@@ -2208,19 +2203,7 @@ var getOrdersThunk = function getOrdersThunk(status, userId) {
       };
     }()
   );
-}; // export const getCartThunk = userId => async dispatch => {
-//   try {
-//     const {data} = await axios.get(`/api/orders/pending/${userId}`)
-//     if (data) {
-//       dispatch(gotCart(data))
-//     } else {
-//       dispatch(noFriends())
-//     }
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
-
+};
 var addAFriendThunk = function addAFriendThunk(id, obj) {
   return (
     /*#__PURE__*/
@@ -2351,8 +2334,7 @@ var completeOrderThunk = function completeOrderThunk(info, userId) {
 
 var initialSate = {
   loading: true,
-  orders: [] // cart: []
-  //Reducer
+  orders: [] //Reducer
 
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -2360,8 +2342,6 @@ var initialSate = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    // case GOT_CART:
-    //   return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
       return _objectSpread({}, state, {
         orders: _toConsumableArray(action.orders),
