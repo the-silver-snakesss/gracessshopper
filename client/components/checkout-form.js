@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {completeOrderThunk} from '../store/orders'
 import {me} from '../store/user'
+import DropIn from 'braintree-web-drop-in-react'
+import Axios from 'axios'
 
 class CheckoutForm extends React.Component {
   constructor() {
@@ -9,13 +11,34 @@ class CheckoutForm extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      address: ''
+      address: '',
+      payment: null
     }
   }
   async componentDidMount() {
     await this.props.me()
+    const res = await Axios.get('/auth/pay/client_token')
+    const clientToken = res.data
+    console.log(res)
+    this.setState({payment: clientToken})
   }
   render() {
+    if (!this.state.clientToken) {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      )
+    }
+    //   return (
+    //     <div>
+    //       <div>
+
+    //         <button type="submit"> Buy</button>
+    //       </div>
+    //     </div>
+    //   )
+    // }
     return (
       <div>
         <form>
@@ -41,6 +64,15 @@ class CheckoutForm extends React.Component {
             onChange={evt => this.setState({address: evt.target.value})}
           />
         </form>
+        <div id="dropin-wrapper">
+          <div id="checkout-message" />
+          <div id="dropin-container" />
+          <DropIn
+            options={{authorization: this.state.payment}}
+            //onInstance={instance => (this.instance = instance)}
+          />
+          <button id="submit-button">Submit payment</button>
+        </div>
         <button
           type="button"
           disabled={
