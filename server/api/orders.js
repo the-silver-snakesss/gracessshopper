@@ -3,29 +3,15 @@ const {Order, Friend, Order_Friends, User} = require('../db/models')
 module.exports = router
 
 // ROUTE PROTECTION
-const isAuth = async (req, res, next) => {
-  try {
-    const users = await User.findOne({
-      where: {
-        id: req.params.userId
-      }
-    })
-    if (users) {
-      req.isLoggedIn = !false
-      req.isLoggedIn
-        ? next()
-        : res.status(404).send({message: 'YOU SHALL NOT PASS'})
-    }
-    req.isLoggedIn
-      ? next()
-      : res.status(404).send({message: 'YOU SHALL NOT PASS'})
-  } catch (err) {
-    next(err)
-    console.error(err, 'Oh no, something went wrong')
+const isAuth = (req, res, next) => {
+  if (!req.session.userId) {
+    res.status(401).send({message: 'YOU SHALL NOT PASS'})
+  } else {
+    next()
   }
 }
 
-router.put('/checkout/:userId', async (req, res, next) => {
+router.put('/checkout/:userId', isAuth, async (req, res, next) => {
   try {
     const orderToUpdate = await Order.findOne({
       where: {
@@ -65,7 +51,7 @@ router.put('/checkout/:userId', async (req, res, next) => {
   }
 })
 
-router.get('/complete/:userId', async (req, res, next) => {
+router.get('/complete/:userId', isAuth, async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
       where: {
@@ -80,7 +66,7 @@ router.get('/complete/:userId', async (req, res, next) => {
   }
 })
 
-router.get('/pending/:userId', async (req, res, next) => {
+router.get('/pending/:userId', isAuth, async (req, res, next) => {
   try {
     const [userOrders] = await Order.findAll({
       where: {
@@ -130,7 +116,7 @@ router.put('/guestcheckout/stock/:friendId', async (req, res, next) => {
   res.status(202).json(updatedFriend)
 })
 
-router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
+router.delete('/delete/:orderId/:friendId', isAuth, async (req, res, next) => {
   try {
     await Order_Friends.destroy({
       where: {
