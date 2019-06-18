@@ -28,9 +28,6 @@ const Navbar = ({handleClick, cart, isLoggedIn, guestCart}) => (
               alt="cart icon"
             />
           </Link>
-          <Link to="#" className="circle right-navbar">
-            <h6 className="cart-count">{cart ? cart.length : 0}</h6>
-          </Link>
         </div>
       ) : (
         <div>
@@ -44,9 +41,6 @@ const Navbar = ({handleClick, cart, isLoggedIn, guestCart}) => (
               src="assets/icons/cart.png"
               alt="cart icon"
             />
-          </Link>
-          <Link to="#" className="circle">
-            <h6 className="cart-count">{guestCart.length}</h6>
           </Link>
         </div>
       )}

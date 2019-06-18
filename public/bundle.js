@@ -954,12 +954,7 @@ var Navbar = function Navbar(_ref) {
     className: "cart-icon",
     src: "assets/icons/cart.png",
     alt: "cart icon"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "#",
-    className: "circle right-navbar"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
-    className: "cart-count"
-  }, cart ? cart.length : 0))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/login"
   }, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/signup"
@@ -971,12 +966,7 @@ var Navbar = function Navbar(_ref) {
     className: "cart-icon",
     src: "assets/icons/cart.png",
     alt: "cart icon"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "#",
-    className: "circle"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
-    className: "cart-count"
-  }, guestCart.length)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
 };
 /**
  * CONTAINER
