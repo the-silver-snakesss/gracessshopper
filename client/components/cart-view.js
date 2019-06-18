@@ -17,6 +17,7 @@ class CartView extends React.Component {
     let total = this.props.cart.reduce((accum, curr) => {
       return accum + curr.price * curr.order_friends.quantity
     }, 0)
+    total = '$' + String(total).slice(0, 5)
     return (
       <div>
         <table>
@@ -33,7 +34,7 @@ class CartView extends React.Component {
               <tr key={friend.id}>
                 <td>{friend.name}</td>
                 <td>{friend.order_friends.quantity}</td>
-                <td>{friend.order_friends.quantity * friend.price}</td>
+                <td>${friend.order_friends.quantity * friend.price}</td>
                 <td>
                   <button
                     type="button"
@@ -48,7 +49,7 @@ class CartView extends React.Component {
               </tr>
             ))}
           </tbody>
-          <hr />
+
           <tbody>
             <tr>
               <td>Total:</td>
@@ -57,9 +58,21 @@ class CartView extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button type="button">
-          <Link to="/checkout">Chickity-CheckOut</Link>
-        </button>
+        <div className="buttons-container">
+          <button type="button">
+            <Link to="/checkout">Chickity-CheckOut</Link>
+          </button>
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                this.props.history.push('/all')
+              }}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
       </div>
     )
   }

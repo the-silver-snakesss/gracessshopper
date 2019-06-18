@@ -7,6 +7,7 @@ class GuestCart extends React.Component {
     let total = this.props.guest.reduce((accum, curr) => {
       return accum + JSON.parse(curr).price * 1
     }, 0)
+    total = '$' + String(total).slice(0, 5)
     return (
       <div>
         <table>
@@ -28,7 +29,7 @@ class GuestCart extends React.Component {
                   <tr key={friend.id}>
                     <td>{friend.name}</td>
                     <td>1</td>
-                    <td>{1 * friend.price}</td>
+                    <td>${1 * friend.price}</td>
                     <td>
                       <button
                         type="button"
@@ -43,7 +44,6 @@ class GuestCart extends React.Component {
               })
             )}
           </tbody>
-          <hr />
           <tbody>
             <tr>
               <td>Total:</td>
