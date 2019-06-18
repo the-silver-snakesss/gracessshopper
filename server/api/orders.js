@@ -52,7 +52,6 @@ router.put('/checkout/:userId', isAuth, async (req, res, next) => {
 })
 
 router.get('/:status/:userId', isAuth, async (req, res, next) => {
-
   try {
     const [userOrders] = await Order.findAll({
       where: {
@@ -66,7 +65,7 @@ router.get('/:status/:userId', isAuth, async (req, res, next) => {
       if (req.params.status === 'pending') {
         res.status(200).json(userOrders.friends)
       } else {
-        console.log('This is user Orders', userOrders.dataValues)
+        console.log('This is user Orders', userOrders)
         res.status(200).json([userOrders])
       }
     } else res.json([])
