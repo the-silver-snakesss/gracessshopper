@@ -2224,6 +2224,7 @@ var getCartThunk = function getCartThunk(userId) {
               case 3:
                 _ref4 = _context2.sent;
                 data = _ref4.data;
+                console.log('THIS IS DATA', data);
 
                 if (data) {
                   dispatch(gotCart(data));
@@ -2231,20 +2232,20 @@ var getCartThunk = function getCartThunk(userId) {
                   dispatch(noFriends());
                 }
 
-                _context2.next = 11;
+                _context2.next = 12;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 9:
+                _context2.prev = 9;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 11:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 9]]);
       }));
 
       return function (_x2) {

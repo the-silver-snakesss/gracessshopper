@@ -63,9 +63,8 @@ router.get('/:status/:userId', isAuth, async (req, res, next) => {
     console.log('This is user Orders', [userOrders])
     if (userOrders) {
       if (req.params.status === 'pending') {
-        res.status(200).json(userOrders.friends)
+        res.status(200).json(userOrders)
       } else {
-        console.log('This is user Orders', userOrders)
         res.status(200).json([...userOrders])
       }
     } else res.json([])
