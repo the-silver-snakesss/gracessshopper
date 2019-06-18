@@ -11,9 +11,10 @@ class CartView extends React.Component {
   }
 
   render() {
-    if (this.props.loading) {
+    if (this.props.cart.length === 0 || this.props.cart[0].name === undefined) {
       return <div>loading...</div>
     }
+    console.log('this is the CART:', this.props.cart)
     let total = this.props.cart.reduce((accum, curr) => {
       return accum + curr.price * curr.order_friends.quantity
     }, 0)

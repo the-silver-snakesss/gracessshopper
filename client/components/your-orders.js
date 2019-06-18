@@ -10,7 +10,10 @@ class YourOrders extends React.Component {
   }
 
   render() {
-    if (this.props.loading) {
+    if (
+      this.props.orders.length === 0 ||
+      this.props.orders[0].status === undefined
+    ) {
       return <div>loading...</div>
     }
     console.log('this is the props.orders', this.props.orders)

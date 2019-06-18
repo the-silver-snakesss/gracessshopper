@@ -302,10 +302,11 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      if (this.props.loading) {
+      if (this.props.cart.length === 0 || this.props.cart[0].name === undefined) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       }
 
+      console.log('this is the CART:', this.props.cart);
       var total = this.props.cart.reduce(function (accum, curr) {
         return accum + curr.price * curr.order_friends.quantity;
       }, 0);
@@ -1449,7 +1450,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.props.loading) {
+      if (this.props.orders.length === 0 || this.props.orders[0].status === undefined) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       }
 
