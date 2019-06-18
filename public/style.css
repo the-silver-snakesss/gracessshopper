@@ -74,3 +74,9 @@ a.circle {
 .right-navbar {
   text-align: right;
 }
+
+.home-icon {
+  height: 40px;
+  width: 40px;
+  margin: 0;
+}

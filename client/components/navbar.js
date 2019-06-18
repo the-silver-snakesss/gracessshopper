@@ -3,21 +3,22 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Navbar from 'react-bootstrap/Navbar'
 
-const Navbar = ({handleClick, cart, isLoggedIn, guestCart}) => (
+const TopNavbar = ({handleClick, cart, isLoggedIn, guestCart}) => (
   <div>
     <h1 className="navbar-header">
-      Imagine{' '}
-      <img src="https://previews.123rf.com/images/andreahast/andreahast1106/andreahast110600004/9730759-pink-flower-of-gerber-isolated.jpg" />{' '}
-      Nation
+      Imagine <img src="/assets/images/flower.png" /> Nation
     </h1>
-    <nav>
+    <Navbar bg="light" variant="light">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/home">
+            <img src="/assets/icons/home-page.png" className="home-icon" />
+          </Link>
           <Link to="/all">Shop</Link>
-          <a className="right-navbar" href="#" onClick={handleClick}>
+          <a className="justify-content-end" href="#" onClick={handleClick}>
             Logout
           </a>
 
@@ -44,7 +45,7 @@ const Navbar = ({handleClick, cart, isLoggedIn, guestCart}) => (
           </Link>
         </div>
       )}
-    </nav>
+    </Navbar>
     <hr />
   </div>
 )
@@ -68,12 +69,12 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(TopNavbar)
 
 /**
  * PROP TYPES
  */
-Navbar.propTypes = {
+TopNavbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

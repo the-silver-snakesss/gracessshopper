@@ -4,12 +4,17 @@ import {getFriend} from '../store/friends'
 import {addAFriendThunk} from '../store/orders'
 import {addGuestThunk} from '../store/guest'
 import {me} from '../store/user'
+import Alert from 'react-bootstrap/Alert'
 
 import SingleFriend from './single-friend'
 
 class SingleFriendView extends React.Component {
   constructor() {
     super()
+
+    this.state = {
+      isAdded: false
+    }
 
     this.handleClick = this.handleClick.bind(this)
   }
@@ -20,7 +25,11 @@ class SingleFriendView extends React.Component {
   }
 
   async handleClick() {
-    await this.props.addtoCartAsGuest(this.props.selectedFriend)
+    if (this.props.user.id) {
+      await this.props.addtoCart(this.props.user.id, this.props.selectedFriend)
+    } else {
+      await this.props.addtoCartAsGuest(this.props.selectedFriend)
+    }
   }
   render() {
     const {
@@ -41,23 +50,9 @@ class SingleFriendView extends React.Component {
         <h4>likes: {likes}</h4>
         <h4>description: {description}</h4>
         <h4>activities: {activities}</h4>
-        {this.props.user.id ? (
-          <button
-            type="button"
-            onClick={() =>
-              this.props.addtoCart(
-                this.props.user.id,
-                this.props.selectedFriend
-              )
-            }
-          >
-            Add to cart!
-          </button>
-        ) : (
-          <button type="button" onClick={() => this.handleClick()}>
-            Add to cart!
-          </button>
-        )}
+        <button type="button" onClick={() => this.handleClick()}>
+          Add to cart!
+        </button>
         <div>
           <button
             type="button"
