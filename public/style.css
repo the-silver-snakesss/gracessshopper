@@ -80,3 +80,18 @@ a.circle {
   width: 40px;
   margin: 0;
 }
+
+.single-friend-container {
+  display: flex;
+  justify-content: space-around;
+}
+.single-friend-container img {
+  height: 50vh;
+  width: 35vw;
+}
+
+.friend-description {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

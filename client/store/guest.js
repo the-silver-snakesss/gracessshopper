@@ -18,7 +18,6 @@ export const addGuestThunk = obj => dispatch => {
 
   for (let i = 0; i < cart.length; i++) {
     if (JSON.parse(cart[i]).id === obj.id) {
-      alert('Sorry try adding a different friend')
       return null
     }
   }
