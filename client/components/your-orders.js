@@ -6,14 +6,11 @@ import {me} from '../store/user'
 class YourOrders extends React.Component {
   async componentDidMount() {
     await this.props.me()
-    await this.props.getOrders('complete', this.props.user.id)
+    await this.props.getOrders(this.props.user.id)
   }
 
   render() {
-    if (
-      this.props.orders.length === 0 ||
-      this.props.orders[0].status === undefined
-    ) {
+    if (this.props.loading) {
       return <div>loading...</div>
     }
     console.log('this is the props.orders', this.props.orders)
@@ -66,7 +63,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getOrders: (status, userId) => dispatch(getOrdersThunk(status, userId)),
+  getOrders: userId => dispatch(getOrdersThunk(userId)),
   me: () => dispatch(me())
 })
 
