@@ -8,7 +8,6 @@ const DELETE_FRIEND = 'DELETE_FRIEND'
 const NO_FRIENDS = 'NO_FRIENDS'
 const COMPLETE_ORDER = 'COMPLETE_ORDER'
 
-
 //Action Creators
 export const completeOrder = orderId => ({
   type: COMPLETE_ORDER,
@@ -39,7 +38,11 @@ export const deleteFriend = friendId => ({
 export const getOrdersThunk = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/complete/${userId}`)
-    dispatch(gotOrders(data))
+    if (data) {
+      dispatch(gotOrders(data))
+    } else {
+      dispatch(noFriends())
+    }
   } catch (error) {
     console.error(error)
   }
@@ -78,7 +81,6 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
   }
 }
 
-
 export const completeOrderThunk = (info, userId) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/orders/checkout/${userId}`, info)
@@ -102,7 +104,7 @@ export default function(state = initialSate, action) {
     case GOT_CART:
       return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
-      return {...state, orders: [...action.orders]}
+      return {...state, orders: [...action.orders], loading: false}
     case DELETE_FRIEND:
       return {
         ...state,

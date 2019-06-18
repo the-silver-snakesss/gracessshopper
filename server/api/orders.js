@@ -11,7 +11,7 @@ const isAuth = (req, res, next) => {
   }
 }
 
-router.put('/checkout/:userId', isAuth, async (req, res, next) => {
+router.put('/checkout/:userId', async (req, res, next) => {
   try {
     const orderToUpdate = await Order.findOne({
       where: {
@@ -51,7 +51,7 @@ router.put('/checkout/:userId', isAuth, async (req, res, next) => {
   }
 })
 
-router.get('/complete/:userId', isAuth, async (req, res, next) => {
+router.get('/complete/:userId', async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
       where: {
@@ -66,7 +66,7 @@ router.get('/complete/:userId', isAuth, async (req, res, next) => {
   }
 })
 
-router.get('/pending/:userId', isAuth, async (req, res, next) => {
+router.get('/pending/:userId', async (req, res, next) => {
   try {
     const [userOrders] = await Order.findAll({
       where: {

@@ -4,9 +4,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, cartCount, userCartCount}) => (
+const Navbar = ({handleClick, cart, isLoggedIn, guestCart}) => (
   <div>
-    <h1>
+    <h1 className="navbar-header">
       Imagine{' '}
       <img src="https://previews.123rf.com/images/andreahast/andreahast1106/andreahast110600004/9730759-pink-flower-of-gerber-isolated.jpg" />{' '}
       Nation
@@ -17,26 +17,29 @@ const Navbar = ({handleClick, isLoggedIn, cartCount, userCartCount}) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/all">Shop</Link>
-          <a href="#" onClick={handleClick}>
+
+          <a className="right-navbar" href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/cart">
+
+          <Link className="right-navbar" to="/cart">
             <img
               className="cart-icon"
-              src="/assets/icons/cart.png"
+              src="assets/icons/cart.png"
               alt="cart icon"
             />
           </Link>
-          <Link to="#" className="circle">
-            <h6 className="cart-count">{userCartCount.length}</h6>
+          <Link to="#" className="circle right-navbar">
+            <h6 className="cart-count">{cart ? cart.length : 0}</h6>
+
           </Link>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
-          <Link to="/all">Shop</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/all">Shop</Link>
           <Link to="/guestCart">
             <img
               className="cart-icon"
@@ -45,7 +48,9 @@ const Navbar = ({handleClick, isLoggedIn, cartCount, userCartCount}) => (
             />
           </Link>
           <Link to="#" className="circle">
-            <h6 className="cart-count">{cartCount}</h6>
+
+            <h6 className="cart-count">{guestCart.length}</h6>
+
           </Link>
         </div>
       )}
@@ -59,9 +64,9 @@ const Navbar = ({handleClick, isLoggedIn, cartCount, userCartCount}) => (
  */
 const mapState = state => {
   return {
+    cart: state.orders.cart,
     isLoggedIn: !!state.user.id,
-    cartCount: state.guest.cartCount,
-    userCartCount: state.orders.cart
+    guestCart: state.guest
   }
 }
 
