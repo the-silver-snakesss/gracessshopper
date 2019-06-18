@@ -23,7 +23,7 @@ class CheckoutForm extends React.Component {
     this.setState({payment: clientToken})
   }
   render() {
-    if (!this.state.clientToken) {
+    if (this.state.clientToken) {
       return (
         <div>
           <h1>Loading...</h1>
