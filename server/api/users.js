@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {User, Order, Friend, Order_Friends} = require('../db/models')
 module.exports = router
 
+// ROUTE PROTECTION
+
 const isAuth = (req, res, next) => {
   if (!req.session.userId) {
     res.status(401).send({message: 'YOU SHALL NOT PASS'})

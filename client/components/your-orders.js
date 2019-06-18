@@ -6,14 +6,13 @@ import {me} from '../store/user'
 class YourOrders extends React.Component {
   async componentDidMount() {
     await this.props.me()
-    await this.props.getOrders('complete', this.props.user.id)
+    await this.props.getOrders(this.props.user.id)
   }
 
   render() {
     if (this.props.loading) {
       return <div>loading...</div>
     }
-    console.log('this is the props.orders', this.props.orders)
 
     return (
       <div>
@@ -22,6 +21,7 @@ class YourOrders extends React.Component {
           let total = order.friends.reduce((accum, curr) => {
             return accum + curr.price * curr.order_friends.quantity
           }, 0)
+          total = '$' + String(total).slice(0, 5)
           return (
             <div key={order.id}>
               <p>Order Number:</p>
@@ -63,7 +63,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getOrders: (status, userId) => dispatch(getOrdersThunk(status, userId)),
+  getOrders: userId => dispatch(getOrdersThunk(userId)),
   me: () => dispatch(me())
 })
 

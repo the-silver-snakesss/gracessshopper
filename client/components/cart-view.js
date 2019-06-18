@@ -1,13 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getOrdersThunk, deleteFriendThunk} from '../store/orders'
+import {getCartThunk, deleteFriendThunk} from '../store/orders'
 import {me} from '../store/user'
 import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 class CartView extends React.Component {
   async componentDidMount() {
     await this.props.me()
-    await this.props.getOrdersThunk('pending', this.props.user.id)
+    await this.props.getCartThunk(this.props.user.id)
   }
 
   render() {
@@ -34,22 +35,24 @@ class CartView extends React.Component {
               <tr key={friend.id}>
                 <td>{friend.name}</td>
                 <td>{friend.order_friends.quantity}</td>
-                <td>${friend.order_friends.quantity * friend.price}</td>
+                <td>{friend.order_friends.quantity * friend.price}</td>
                 <td>
-                  <button
+                  <Button
                     type="button"
+                    variant="light"
+                    size="sm"
                     className="deleteButton"
                     onClick={() => {
                       this.props.delete(friend.order_friends.orderId, friend.id)
                     }}
                   >
                     x
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
-
+          <hr />
           <tbody>
             <tr>
               <td>Total:</td>
@@ -59,18 +62,23 @@ class CartView extends React.Component {
           </tbody>
         </table>
         <div className="buttons-container">
-          <button type="button">
-            <Link to="/checkout">Chickity-CheckOut</Link>
-          </button>
           <div>
-            <button
+            <Button type="button" variant="light" size="sm">
+              <Link to="/checkout">Chickity-CheckOut</Link>
+            </Button>
+          </div>
+          <div>
+            <Button
               type="button"
+              className="cart-view-cont-btn"
+              variant="light"
+              size="sm"
               onClick={() => {
                 this.props.history.push('/all')
               }}
             >
               Continue Shopping
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -79,13 +87,13 @@ class CartView extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.orders.orders,
+  cart: state.orders.cart,
   user: state.user,
   loading: state.orders.loading
 })
 
 const mapDispatch = dispatch => ({
-  getOrdersThunk: (status, userId) => dispatch(getOrdersThunk(status, userId)),
+  getCartThunk: userId => dispatch(getCartThunk(userId)),
   me: () => dispatch(me()),
   delete: (orderId, friendId) => dispatch(deleteFriendThunk(orderId, friendId))
 })

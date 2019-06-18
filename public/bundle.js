@@ -175,7 +175,7 @@ var AuthForm = function AuthForm(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], {
     sm: {
       span: 10,
-      offset: .7
+      offset: 0.7
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
     type: "submit"
@@ -250,6 +250,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_orders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/orders */ "./client/store/orders.js");
 /* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/Button.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -271,6 +273,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -304,7 +307,7 @@ function (_React$Component) {
 
               case 2:
                 _context.next = 4;
-                return this.props.getOrdersThunk('pending', this.props.user.id);
+                return this.props.getCartThunk(this.props.user.id);
 
               case 4:
               case "end":
@@ -332,21 +335,36 @@ function (_React$Component) {
       var total = this.props.cart.reduce(function (accum, curr) {
         return accum + curr.price * curr.order_friends.quantity;
       }, 0);
+      total = '$' + String(total).slice(0, 5);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Quantity"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Remove"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.props.cart.map(function (friend) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           key: friend.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.order_friends.quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.order_friends.quantity * friend.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.order_friends.quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.order_friends.quantity * friend.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
           type: "button",
+          variant: "light",
+          size: "sm",
           className: "deleteButton",
           onClick: function onClick() {
             _this.props["delete"](friend.order_friends.orderId, friend.id);
           }
         }, "x")));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Total:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, total)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Total:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, total)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "buttons-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
+        type: "button",
+        variant: "light",
+        size: "sm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
         to: "/checkout"
-      }, "Chickity-CheckOut")));
+      }, "Chickity-CheckOut"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
+        type: "button",
+        className: "cart-view-cont-btn",
+        variant: "light",
+        size: "sm",
+        onClick: function onClick() {
+          _this.props.history.push('/all');
+        }
+      }, "Continue Shopping"))));
     }
   }]);
 
@@ -355,7 +373,7 @@ function (_React$Component) {
 
 var mapState = function mapState(state) {
   return {
-    cart: state.orders.orders,
+    cart: state.orders.cart,
     user: state.user,
     loading: state.orders.loading
   };
@@ -363,8 +381,8 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    getOrdersThunk: function getOrdersThunk(status, userId) {
-      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(status, userId));
+    getCartThunk: function getCartThunk(userId) {
+      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getCartThunk"])(userId));
     },
     me: function me() {
       return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_3__["me"])());
@@ -393,6 +411,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_orders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/orders */ "./client/store/orders.js");
 /* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/Button.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -414,6 +435,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -498,11 +521,15 @@ function (_React$Component) {
             address: evt.target.value
           });
         }
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
         type: "button",
+        variant: "light",
+        size: "sm",
         disabled: !this.state.firstName || !this.state.lastName || !this.state.address,
         onClick: function onClick() {
           _this2.props.completeOrder(_this2.state, _this2.props.user.id);
+
+          _this2.props.history.push('/ordersrecent');
 
           _this2.setState({
             firstName: '',
@@ -510,7 +537,7 @@ function (_React$Component) {
             address: ''
           });
         }
-      }, "Complete Checkout"));
+      }, "Place Order"));
     }
   }]);
 
@@ -551,6 +578,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_guest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/guest */ "./client/store/guest.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/Button.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -568,6 +597,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -592,31 +622,38 @@ function (_React$Component) {
       var total = this.props.guest.reduce(function (accum, curr) {
         return accum + JSON.parse(curr).price * 1;
       }, 0);
+      total = '$' + String(total).slice(0, 5);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Quantity"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Remove"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, !this.props.guest ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null) : this.props.guest.map(function (friend) {
         friend = JSON.parse(friend);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           key: friend.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, 1 * friend.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, friend.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", 1 * friend.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
           className: "deleteButton",
           onClick: function onClick() {
             return _this.props.remove(friend.id);
           }
         }, "x")));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Total:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, total)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Total:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, total)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "buttons-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
         type: "button",
+        variant: "primary",
+        size: "sm",
         onClick: function onClick() {
           _this.props.history.push('/guest_checkout');
         }
-      }, "CheckOut as Guest")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "CheckOut as Guest")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
         type: "button",
+        variant: "light",
+        size: "sm",
         onClick: function onClick() {
           _this.props.history.push('/signup');
         }
-      }, "Sign Up")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Sign Up")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
         type: "button",
+        variant: "secondary",
+        size: "sm",
         onClick: function onClick() {
           _this.props.history.push('/all');
         }
@@ -658,6 +695,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_guest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/guest */ "./client/store/guest.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/Button.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -677,6 +716,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -747,8 +787,11 @@ function (_React$Component) {
         onChange: function onChange(evt) {
           return _this2.handleChange(evt);
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "submit"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        type: "submit",
+        variant: "light",
+        size: "sm",
+        disabled: !this.state.firstName || !this.state.lastName || !this.state.address
       }, "Place Order")));
     }
   }]);
@@ -1046,7 +1089,16 @@ TopNavbar.propTypes = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_orders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/orders */ "./client/store/orders.js");
+/* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/Button.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1066,6 +1118,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+
+
 var OrderPlaceView =
 /*#__PURE__*/
 function (_React$Component) {
@@ -1078,16 +1134,83 @@ function (_React$Component) {
   }
 
   _createClass(OrderPlaceView, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.me();
+
+              case 2:
+                _context.next = 4;
+                return this.props.getOrders(this.props.user.id);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Your Order Has been placed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Item#"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "ItemName"));
+      var _this = this;
+
+      // if(this.props.loading){
+      //   return (<div>loading...</div>)
+      // }
+      var recentOrder = this.props.orders[this.props.orders.length - 1];
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Loading....") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Your Order Has been placed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, "Order number:", recentOrder.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, "Items: ", recentOrder.friends.map(function (friend) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          key: friend.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, friend.name, " | Quantity: ", friend.order_friends.quantity));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, "Thank You for Shopping with us!")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        type: "button",
+        variant: "light",
+        size: "sm",
+        onClick: function onClick() {
+          return _this.props.history.push('/home');
+        }
+      }, "Home"))));
     }
   }]);
 
   return OrderPlaceView;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (OrderPlaceView);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    orders: state.orders.orders,
+    user: state.user,
+    loading: state.orders.loading
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getOrders: function getOrders(userId) {
+      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(userId));
+    },
+    me: function me() {
+      return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_3__["me"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(OrderPlaceView));
 
 /***/ }),
 
@@ -1109,7 +1232,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
 /* harmony import */ var react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap/Alert */ "./node_modules/react-bootstrap/Alert.js");
 /* harmony import */ var react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _single_friend__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./single-friend */ "./client/components/single-friend.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1131,7 +1253,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -1167,6 +1288,13 @@ function (_React$Component) {
       this.props.me();
     }
   }, {
+    key: "handleDismiss",
+    value: function handleDismiss() {
+      this.setState({
+        isAdded: false
+      });
+    }
+  }, {
     key: "handleClick",
     value: function () {
       var _handleClick = _asyncToGenerator(
@@ -1176,23 +1304,27 @@ function (_React$Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.setState({
+                  isAdded: true
+                });
+
                 if (!this.props.user.id) {
-                  _context.next = 5;
+                  _context.next = 6;
                   break;
                 }
 
-                _context.next = 3;
+                _context.next = 4;
                 return this.props.addtoCart(this.props.user.id, this.props.selectedFriend);
 
-              case 3:
-                _context.next = 7;
+              case 4:
+                _context.next = 8;
                 break;
 
-              case 5:
-                _context.next = 7;
+              case 6:
+                _context.next = 8;
                 return this.props.addtoCartAsGuest(this.props.selectedFriend);
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -1218,19 +1350,20 @@ function (_React$Component) {
           likes = _this$props$selectedF.likes,
           description = _this$props$selectedF.description,
           activities = _this$props$selectedF.activities;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is the single friend view"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "single-friend-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: image
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "price: $", price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "likes: ", likes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "description: ", description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "activities: ", activities), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "friend-description"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "price: $", price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "likes: ", likes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "description: ", description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "activities: ", activities), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick() {
           return _this2.handleClick();
         }
-      }, "Add to cart!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        onClick: function onClick() {
-          _this2.props.history.push('/all');
-        }
-      }, ' ', "Continue Shopping")));
+      }, "Add to cart!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.isAdded && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Alert__WEBPACK_IMPORTED_MODULE_6___default.a, {
+        variant: "success"
+      }, "You have added ", name, " to your cart!"))));
     }
   }]);
 
@@ -1316,6 +1449,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap/Button */ "./node_modules/react-bootstrap/Button.js");
+/* harmony import */ var react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -1326,8 +1462,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var UserHome = function UserHome(props) {
   var email = props.email;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", email), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    type: "button"
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", email), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    type: "button",
+    variant: "light",
+    size: "sm"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/orders"
   }, "View Past Orders")));
@@ -1478,7 +1616,7 @@ function (_React$Component) {
 
               case 2:
                 _context.next = 4;
-                return this.props.getOrders('complete', this.props.user.id);
+                return this.props.getOrders(this.props.user.id);
 
               case 4:
               case "end":
@@ -1501,11 +1639,11 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       }
 
-      console.log('this is the props.orders', this.props.orders);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Your Past Orders"), this.props.orders.map(function (order) {
         var total = order.friends.reduce(function (accum, curr) {
           return accum + curr.price * curr.order_friends.quantity;
         }, 0);
+        total = '$' + String(total).slice(0, 5);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: order.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Order Number:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, order.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Order Address:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, order.address), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Qty"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Price"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, order.friends.map(function (friend) {
@@ -1530,8 +1668,8 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    getOrders: function getOrders(status, userId) {
-      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(status, userId));
+    getOrders: function getOrders(userId) {
+      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(userId));
     },
     me: function me() {
       return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_3__["me"])());
@@ -1690,6 +1828,9 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/orders",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["YourOrders"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/ordersrecent",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["OrderPlaceView"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/checkout",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["CheckoutForm"]
@@ -1969,7 +2110,6 @@ var addGuestThunk = function addGuestThunk(obj) {
 
     for (var i = 0; i < cart.length; i++) {
       if (JSON.parse(cart[i]).id === obj.id) {
-        alert('Sorry try adding a different friend');
         return null;
       }
     }
@@ -2129,7 +2269,7 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, m
 /*!********************************!*\
   !*** ./client/store/orders.js ***!
   \********************************/
-/*! exports provided: completeOrder, noFriends, gotOrders, deleteFriend, getOrdersThunk, addAFriendThunk, deleteFriendThunk, completeOrderThunk, default */
+/*! exports provided: completeOrder, noFriends, gotOrders, gotCart, deleteFriend, getOrdersThunk, getCartThunk, addAFriendThunk, deleteFriendThunk, completeOrderThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2137,8 +2277,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "completeOrder", function() { return completeOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noFriends", function() { return noFriends; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gotOrders", function() { return gotOrders; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gotCart", function() { return gotCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFriend", function() { return deleteFriend; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrdersThunk", function() { return getOrdersThunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCartThunk", function() { return getCartThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addAFriendThunk", function() { return addAFriendThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFriendThunk", function() { return deleteFriendThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "completeOrderThunk", function() { return completeOrderThunk; });
@@ -2165,6 +2307,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  //Action types
 
 var GOT_ORDERS = 'GOT_ORDERS';
+var GOT_CART = 'GOT_CART';
 var DELETE_FRIEND = 'DELETE_FRIEND';
 var NO_FRIENDS = 'NO_FRIENDS';
 var COMPLETE_ORDER = 'COMPLETE_ORDER'; //Action Creators
@@ -2186,6 +2329,12 @@ var gotOrders = function gotOrders(orders) {
     orders: orders
   };
 };
+var gotCart = function gotCart(cart) {
+  return {
+    type: GOT_CART,
+    cart: cart
+  };
+};
 var deleteFriend = function deleteFriend(friendId) {
   return {
     type: DELETE_FRIEND,
@@ -2193,7 +2342,7 @@ var deleteFriend = function deleteFriend(friendId) {
   };
 }; //Thunk Creators
 
-var getOrdersThunk = function getOrdersThunk(status, userId) {
+var getOrdersThunk = function getOrdersThunk(userId) {
   return (
     /*#__PURE__*/
     function () {
@@ -2208,7 +2357,7 @@ var getOrdersThunk = function getOrdersThunk(status, userId) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/".concat(status, "/").concat(userId));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/complete/".concat(userId));
 
               case 3:
                 _ref2 = _context.sent;
@@ -2242,39 +2391,47 @@ var getOrdersThunk = function getOrdersThunk(status, userId) {
     }()
   );
 };
-var addAFriendThunk = function addAFriendThunk(id, obj) {
+var getCartThunk = function getCartThunk(userId) {
   return (
     /*#__PURE__*/
     function () {
       var _ref3 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(dispatch) {
-        var res;
+        var _ref4, data;
+
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/".concat(id, "/add"), obj);
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/pending/".concat(userId));
 
               case 3:
-                res = _context2.sent;
-                dispatch(getOrdersThunk(id));
-                _context2.next = 10;
+                _ref4 = _context2.sent;
+                data = _ref4.data;
+
+                if (data) {
+                  dispatch(gotCart(data));
+                } else {
+                  dispatch(noFriends());
+                }
+
+                _context2.next = 11;
                 break;
 
-              case 7:
-                _context2.prev = 7;
+              case 8:
+                _context2.prev = 8;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 10:
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 8]]);
       }));
 
       return function (_x2) {
@@ -2283,50 +2440,48 @@ var addAFriendThunk = function addAFriendThunk(id, obj) {
     }()
   );
 };
-var deleteFriendThunk = function deleteFriendThunk(orderId, friendId) {
+var addAFriendThunk = function addAFriendThunk(id, obj) {
   return (
     /*#__PURE__*/
     function () {
-      var _ref4 = _asyncToGenerator(
+      var _ref5 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee3(dispatch) {
-        var _ref5, data;
-
+        var res;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/orders/delete/".concat(orderId, "/").concat(friendId));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/".concat(id, "/add"), obj);
 
               case 3:
-                _ref5 = _context3.sent;
-                data = _ref5.data;
-                dispatch(deleteFriend(friendId));
-                _context3.next = 11;
+                res = _context3.sent;
+                dispatch(getCartThunk(id));
+                _context3.next = 10;
                 break;
 
-              case 8:
-                _context3.prev = 8;
+              case 7:
+                _context3.prev = 7;
                 _context3.t0 = _context3["catch"](0);
                 console.error(_context3.t0);
 
-              case 11:
+              case 10:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 8]]);
+        }, _callee3, null, [[0, 7]]);
       }));
 
       return function (_x3) {
-        return _ref4.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }()
   );
 };
-var completeOrderThunk = function completeOrderThunk(info, userId) {
+var deleteFriendThunk = function deleteFriendThunk(orderId, friendId) {
   return (
     /*#__PURE__*/
     function () {
@@ -2341,12 +2496,12 @@ var completeOrderThunk = function completeOrderThunk(info, userId) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/orders/checkout/".concat(userId), info);
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/orders/delete/".concat(orderId, "/").concat(friendId));
 
               case 3:
                 _ref7 = _context4.sent;
                 data = _ref7.data;
-                dispatch(getOrdersThunk(userId));
+                dispatch(deleteFriend(friendId));
                 _context4.next = 11;
                 break;
 
@@ -2368,11 +2523,55 @@ var completeOrderThunk = function completeOrderThunk(info, userId) {
       };
     }()
   );
+};
+var completeOrderThunk = function completeOrderThunk(info, userId) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref8 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee5(dispatch) {
+        var _ref9, data;
+
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.prev = 0;
+                _context5.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/orders/checkout/".concat(userId), info);
+
+              case 3:
+                _ref9 = _context5.sent;
+                data = _ref9.data;
+                dispatch(getCartThunk(userId));
+                _context5.next = 11;
+                break;
+
+              case 8:
+                _context5.prev = 8;
+                _context5.t0 = _context5["catch"](0);
+                console.error(_context5.t0);
+
+              case 11:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, null, [[0, 8]]);
+      }));
+
+      return function (_x5) {
+        return _ref8.apply(this, arguments);
+      };
+    }()
+  );
 }; //Initial State
 
 var initialSate = {
   loading: true,
-  orders: [] //Reducer
+  orders: [],
+  cart: [] //Reducer
 
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -2380,6 +2579,12 @@ var initialSate = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case GOT_CART:
+      return _objectSpread({}, state, {
+        cart: _toConsumableArray(action.cart),
+        loading: false
+      });
+
     case GOT_ORDERS:
       return _objectSpread({}, state, {
         orders: _toConsumableArray(action.orders),
@@ -27450,6 +27655,77 @@ Alert.Heading = (0, _createWithBsPrefix.default)('alert-heading', {
   Component: DivStyledAsH4
 });
 var _default = Alert;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/Button.js":
+/*!************************************************!*\
+  !*** ./node_modules/react-bootstrap/Button.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _ThemeProvider = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/ThemeProvider.js");
+
+var _SafeAnchor = _interopRequireDefault(__webpack_require__(/*! ./SafeAnchor */ "./node_modules/react-bootstrap/SafeAnchor.js"));
+
+var defaultProps = {
+  variant: 'primary',
+  active: false,
+  disabled: false,
+  type: 'button'
+};
+
+var Button = _react.default.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      variant = _ref.variant,
+      size = _ref.size,
+      active = _ref.active,
+      className = _ref.className,
+      block = _ref.block,
+      type = _ref.type,
+      as = _ref.as,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "variant", "size", "active", "className", "block", "type", "as"]);
+  var prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn');
+  var classes = (0, _classnames.default)(className, prefix, active && 'active', prefix + "-" + variant, block && prefix + "-block", size && prefix + "-" + size);
+
+  if (props.href) {
+    return _react.default.createElement(_SafeAnchor.default, (0, _extends2.default)({}, props, {
+      as: as,
+      innerRef: ref,
+      className: (0, _classnames.default)(classes, props.disabled && 'disabled')
+    }));
+  }
+
+  var Component = as || 'button';
+  if (ref) props.ref = ref;
+  return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
+    type: type,
+    className: classes
+  }));
+});
+
+Button.displayName = 'Button';
+Button.defaultProps = defaultProps;
+var _default = Button;
 exports.default = _default;
 module.exports = exports["default"];
 
@@ -61859,7 +62135,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

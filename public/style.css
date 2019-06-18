@@ -95,3 +95,7 @@ a.circle {
   flex-direction: column;
   text-align: center;
 }
+
+.cart-view-cont-btn {
+  color: #0a61fe;
+}

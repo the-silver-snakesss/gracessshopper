@@ -51,24 +51,32 @@ router.put('/checkout/:userId', isAuth, async (req, res, next) => {
   }
 })
 
-router.get('/:status/:userId', isAuth, async (req, res, next) => {
+router.get('/complete/:userId', isAuth, async (req, res, next) => {
+  try {
+    const userOrders = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        status: 'complete'
+      },
+      include: [{model: Friend}]
+    })
+    res.status(200).json(userOrders)
+  } catch (error) {
+    next(error)
+  }
+})
 
+router.get('/pending/:userId', isAuth, async (req, res, next) => {
   try {
     const [userOrders] = await Order.findAll({
       where: {
         userId: req.params.userId,
-        status: req.params.status
+        status: 'pending'
       },
       include: [{model: Friend}]
     })
-
     if (userOrders) {
-      if (req.params.status === 'pending') {
-        res.status(200).json(userOrders.friends)
-      } else {
-        console.log('This is user Orders', userOrders.dataValues)
-        res.status(200).json([userOrders])
-      }
+      res.status(200).json(userOrders.friends)
     } else res.json([])
   } catch (error) {
     next(error)
@@ -108,7 +116,7 @@ router.put('/guestcheckout/stock/:friendId', async (req, res, next) => {
   res.status(202).json(updatedFriend)
 })
 
-router.delete('/delete/:orderId/:friendId', isAuth, async (req, res, next) => {
+router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
   try {
     await Order_Friends.destroy({
       where: {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {guestCheckout} from '../store/guest'
+import Button from 'react-bootstrap/Button'
 
 class GuestCheckoutForm extends React.Component {
   constructor() {
@@ -55,7 +56,18 @@ class GuestCheckoutForm extends React.Component {
             value={this.state.address}
             onChange={evt => this.handleChange(evt)}
           />
-          <button type="submit">Place Order</button>
+          <Button
+            type="submit"
+            variant="light"
+            size="sm"
+            disabled={
+              !this.state.firstName ||
+              !this.state.lastName ||
+              !this.state.address
+            }
+          >
+            Place Order
+          </Button>
         </form>
       </div>
     )
