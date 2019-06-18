@@ -306,7 +306,6 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       }
 
-      console.log('this is the CART:', this.props.cart);
       var total = this.props.cart.reduce(function (accum, curr) {
         return accum + curr.price * curr.order_friends.quantity;
       }, 0);
@@ -1454,7 +1453,6 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       }
 
-      console.log('this is the props.orders', this.props.orders);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Your Past Orders"), this.props.orders.map(function (order) {
         var total = order.friends.reduce(function (accum, curr) {
           return accum + curr.price * curr.order_friends.quantity;
@@ -2224,7 +2222,6 @@ var getCartThunk = function getCartThunk(userId) {
               case 3:
                 _ref4 = _context2.sent;
                 data = _ref4.data;
-                console.log('THIS IS DATA', data);
 
                 if (data) {
                   dispatch(gotCart(data));
@@ -2232,20 +2229,20 @@ var getCartThunk = function getCartThunk(userId) {
                   dispatch(noFriends());
                 }
 
-                _context2.next = 12;
+                _context2.next = 11;
                 break;
 
-              case 9:
-                _context2.prev = 9;
+              case 8:
+                _context2.prev = 8;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 12:
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 9]]);
+        }, _callee2, null, [[0, 8]]);
       }));
 
       return function (_x2) {

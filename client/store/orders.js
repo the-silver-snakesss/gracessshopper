@@ -50,7 +50,6 @@ export const getOrdersThunk = userId => async dispatch => {
 export const getCartThunk = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/pending/${userId}`)
-    console.log('THIS IS DATA', data)
     if (data) {
       dispatch(gotCart(data))
     } else {

@@ -13,7 +13,6 @@ class YourOrders extends React.Component {
     if (this.props.loading) {
       return <div>loading...</div>
     }
-    console.log('this is the props.orders', this.props.orders)
 
     return (
       <div>
