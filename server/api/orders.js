@@ -2,28 +2,16 @@ const router = require('express').Router()
 const {Order, Friend, Order_Friends, User} = require('../db/models')
 module.exports = router
 
-// // ROUTE PROTECTION
-const isAuth = async (req, res, next) => {
-  try {
-    const users = await User.findOne({
-      where: {
-        id: req.params.userId
-      }
-    })
-    if (!users) {
-      req.isLoggedIn = false
-      req.isLoggedIn ? next() : res.send({message: 'YOU SHALL NOT PASS'})
-    } else {
-      req.isLoggedIn = true
-      req.isLoggedIn ? next() : res.send({message: 'YOU SHALL NOT PASS'})
-    }
-  } catch (err) {
-    next(err)
-    console.error(err, 'Oh no, something went wrong')
+// ROUTE PROTECTION
+const isAuth = (req, res, next) => {
+  if (!req.session.userId) {
+    res.status(401).send({message: 'YOU SHALL NOT PASS'})
+  } else {
+    next()
   }
 }
 
-router.put('/checkout/:userId', async (req, res, next) => {
+router.put('/checkout/:userId', isAuth, async (req, res, next) => {
   try {
     const orderToUpdate = await Order.findOne({
       where: {
@@ -78,7 +66,7 @@ router.get('/complete/:userId', isAuth, async (req, res, next) => {
   }
 })
 
-router.get('/pending/:userId', async (req, res, next) => {
+router.get('/pending/:userId', isAuth, async (req, res, next) => {
   try {
     const [userOrders] = await Order.findAll({
       where: {

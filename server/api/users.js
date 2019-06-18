@@ -2,6 +2,15 @@ const router = require('express').Router()
 const {User, Order, Friend, Order_Friends} = require('../db/models')
 module.exports = router
 
+// ROUTE PROTECTION
+const isAuth = (req, res, next) => {
+  if (!req.session.userId) {
+    res.status(401).send({message: 'YOU SHALL NOT PASS'})
+  } else {
+    next()
+  }
+}
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -16,7 +25,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/:id/add', async (req, res, next) => {
+router.post('/:id/add', isAuth, async (req, res, next) => {
   try {
     const validate = await Order.findOne({
       where: {
