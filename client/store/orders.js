@@ -23,10 +23,10 @@ export const gotOrders = orders => ({
   orders
 })
 
-export const gotCart = cart => ({
-  type: GOT_CART,
-  cart
-})
+// export const gotCart = cart => ({
+//   type: GOT_CART,
+//   cart
+// })
 
 export const deleteFriend = friendId => ({
   type: DELETE_FRIEND,
@@ -35,9 +35,9 @@ export const deleteFriend = friendId => ({
 
 //Thunk Creators
 
-export const getOrdersThunk = userId => async dispatch => {
+export const getOrdersThunk = (status, userId) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/orders/complete/${userId}`)
+    const {data} = await axios.get(`/api/orders/${status}/${userId}`)
     if (data) {
       dispatch(gotOrders(data))
     } else {
@@ -48,23 +48,23 @@ export const getOrdersThunk = userId => async dispatch => {
   }
 }
 
-export const getCartThunk = userId => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/orders/pending/${userId}`)
-    if (data) {
-      dispatch(gotCart(data))
-    } else {
-      dispatch(noFriends())
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
+// export const getCartThunk = userId => async dispatch => {
+//   try {
+//     const {data} = await axios.get(`/api/orders/pending/${userId}`)
+//     if (data) {
+//       dispatch(gotCart(data))
+//     } else {
+//       dispatch(noFriends())
+//     }
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 export const addAFriendThunk = (id, obj) => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}/add`, obj)
-    dispatch(getCartThunk(id))
+    dispatch(getOrdersThunk(id))
   } catch (err) {
     console.error(err)
   }
@@ -84,7 +84,7 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
 export const completeOrderThunk = (info, userId) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/orders/checkout/${userId}`, info)
-    dispatch(getCartThunk(userId))
+    dispatch(getOrdersThunk(userId))
   } catch (error) {
     console.error(error)
   }
@@ -93,16 +93,16 @@ export const completeOrderThunk = (info, userId) => async dispatch => {
 //Initial State
 const initialSate = {
   loading: true,
-  orders: [],
-  cart: []
+  orders: []
+  // cart: []
 }
 
 //Reducer
 
 export default function(state = initialSate, action) {
   switch (action.type) {
-    case GOT_CART:
-      return {...state, cart: [...action.cart], loading: false}
+    // case GOT_CART:
+    //   return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
       return {...state, orders: [...action.orders], loading: false}
     case DELETE_FRIEND:

@@ -65,27 +65,27 @@ router.put('/checkout/:userId', async (req, res, next) => {
   }
 })
 
-router.get('/complete/:userId', async (req, res, next) => {
-  try {
-    const userOrders = await Order.findAll({
-      where: {
-        userId: req.params.userId,
-        status: 'complete'
-      },
-      include: [{model: Friend}]
-    })
-    res.status(200).json(userOrders)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.get('/complete/:userId', async (req, res, next) => {
+//   try {
+//     const userOrders = await Order.findAll({
+//       where: {
+//         userId: req.params.userId,
+//         status: 'complete'
+//       },
+//       include: [{model: Friend}]
+//     })
+//     res.status(200).json(userOrders)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
-router.get('/pending/:userId', async (req, res, next) => {
+router.get('/:status/:userId', async (req, res, next) => {
   try {
     const [userOrders] = await Order.findAll({
       where: {
         userId: req.params.userId,
-        status: 'pending'
+        status: req.params.status
       },
       include: [{model: Friend}]
     })

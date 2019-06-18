@@ -281,7 +281,7 @@ function (_React$Component) {
 
               case 2:
                 _context.next = 4;
-                return this.props.getCartThunk(this.props.user.id);
+                return this.props.getOrdersThunk('pending', this.props.user.id);
 
               case 4:
               case "end":
@@ -332,7 +332,7 @@ function (_React$Component) {
 
 var mapState = function mapState(state) {
   return {
-    cart: state.orders.cart,
+    cart: state.orders.orders,
     user: state.user,
     loading: state.orders.loading
   };
@@ -340,8 +340,8 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    getCartThunk: function getCartThunk(userId) {
-      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getCartThunk"])(userId));
+    getOrdersThunk: function getOrdersThunk(status, userId) {
+      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(status, userId));
     },
     me: function me() {
       return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_3__["me"])());
@@ -932,25 +932,40 @@ __webpack_require__.r(__webpack_exports__);
 
 var Navbar = function Navbar(_ref) {
   var handleClick = _ref.handleClick,
-      isLoggedIn = _ref.isLoggedIn;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Imagine", ' ', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      cart = _ref.cart,
+      isLoggedIn = _ref.isLoggedIn,
+      guestCart = _ref.guestCart;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    className: "navbar-header"
+  }, "Imagine", ' ', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "https://previews.123rf.com/images/andreahast/andreahast1106/andreahast110600004/9730759-pink-flower-of-gerber-isolated.jpg"
   }), ' ', "Nation"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
   }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/all"
-  }, "Shop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/cart"
-  }, "Cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Shop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "right-navbar",
     href: "#",
     onClick: handleClick
-  }, "Logout")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, "Logout"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    className: "right-navbar",
+    to: "/cart"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "cart-icon",
+    src: "assets/icons/cart.png",
+    alt: "cart icon"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "#",
+    className: "circle right-navbar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
+    className: "cart-count"
+  }, cart ? cart.length : 0))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/login"
   }, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/all"
-  }, "Shop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/signup"
   }, "Sign Up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/all"
+  }, "Shop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/guestCart"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "cart-icon",
@@ -961,7 +976,7 @@ var Navbar = function Navbar(_ref) {
     className: "circle"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
     className: "cart-count"
-  }, localStorage.length)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  }, guestCart.length)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
 };
 /**
  * CONTAINER
@@ -970,7 +985,9 @@ var Navbar = function Navbar(_ref) {
 
 var mapState = function mapState(state) {
   return {
-    isLoggedIn: !!state.user.id
+    cart: state.orders.cart,
+    isLoggedIn: !!state.user.id,
+    guestCart: state.guest
   };
 };
 
@@ -1423,7 +1440,7 @@ function (_React$Component) {
 
               case 2:
                 _context.next = 4;
-                return this.props.getOrders(this.props.user.id);
+                return this.props.getOrders('complete', this.props.user.id);
 
               case 4:
               case "end":
@@ -1475,8 +1492,8 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    getOrders: function getOrders(userId) {
-      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(userId));
+    getOrders: function getOrders(status, userId) {
+      return dispatch(Object(_store_orders__WEBPACK_IMPORTED_MODULE_2__["getOrdersThunk"])(status, userId));
     },
     me: function me() {
       return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_3__["me"])());
@@ -2074,7 +2091,7 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, m
 /*!********************************!*\
   !*** ./client/store/orders.js ***!
   \********************************/
-/*! exports provided: completeOrder, noFriends, gotOrders, gotCart, deleteFriend, getOrdersThunk, getCartThunk, addAFriendThunk, deleteFriendThunk, completeOrderThunk, default */
+/*! exports provided: completeOrder, noFriends, gotOrders, deleteFriend, getOrdersThunk, addAFriendThunk, deleteFriendThunk, completeOrderThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2082,10 +2099,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "completeOrder", function() { return completeOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noFriends", function() { return noFriends; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gotOrders", function() { return gotOrders; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gotCart", function() { return gotCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFriend", function() { return deleteFriend; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrdersThunk", function() { return getOrdersThunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCartThunk", function() { return getCartThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addAFriendThunk", function() { return addAFriendThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFriendThunk", function() { return deleteFriendThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "completeOrderThunk", function() { return completeOrderThunk; });
@@ -2133,13 +2148,11 @@ var gotOrders = function gotOrders(orders) {
     type: GOT_ORDERS,
     orders: orders
   };
-};
-var gotCart = function gotCart(cart) {
-  return {
-    type: GOT_CART,
-    cart: cart
-  };
-};
+}; // export const gotCart = cart => ({
+//   type: GOT_CART,
+//   cart
+// })
+
 var deleteFriend = function deleteFriend(friendId) {
   return {
     type: DELETE_FRIEND,
@@ -2147,7 +2160,7 @@ var deleteFriend = function deleteFriend(friendId) {
   };
 }; //Thunk Creators
 
-var getOrdersThunk = function getOrdersThunk(userId) {
+var getOrdersThunk = function getOrdersThunk(status, userId) {
   return (
     /*#__PURE__*/
     function () {
@@ -2162,7 +2175,7 @@ var getOrdersThunk = function getOrdersThunk(userId) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/complete/".concat(userId));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/".concat(status, "/").concat(userId));
 
               case 3:
                 _ref2 = _context.sent;
@@ -2195,48 +2208,52 @@ var getOrdersThunk = function getOrdersThunk(userId) {
       };
     }()
   );
-};
-var getCartThunk = function getCartThunk(userId) {
+}; // export const getCartThunk = userId => async dispatch => {
+//   try {
+//     const {data} = await axios.get(`/api/orders/pending/${userId}`)
+//     if (data) {
+//       dispatch(gotCart(data))
+//     } else {
+//       dispatch(noFriends())
+//     }
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
+
+var addAFriendThunk = function addAFriendThunk(id, obj) {
   return (
     /*#__PURE__*/
     function () {
       var _ref3 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(dispatch) {
-        var _ref4, data;
-
+        var res;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/pending/".concat(userId));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/".concat(id, "/add"), obj);
 
               case 3:
-                _ref4 = _context2.sent;
-                data = _ref4.data;
-
-                if (data) {
-                  dispatch(gotCart(data));
-                } else {
-                  dispatch(noFriends());
-                }
-
-                _context2.next = 11;
+                res = _context2.sent;
+                dispatch(getOrdersThunk(id));
+                _context2.next = 10;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 7:
+                _context2.prev = 7;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 11:
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 7]]);
       }));
 
       return function (_x2) {
@@ -2245,48 +2262,50 @@ var getCartThunk = function getCartThunk(userId) {
     }()
   );
 };
-var addAFriendThunk = function addAFriendThunk(id, obj) {
+var deleteFriendThunk = function deleteFriendThunk(orderId, friendId) {
   return (
     /*#__PURE__*/
     function () {
-      var _ref5 = _asyncToGenerator(
+      var _ref4 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee3(dispatch) {
-        var res;
+        var _ref5, data;
+
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users/".concat(id, "/add"), obj);
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/orders/delete/".concat(orderId, "/").concat(friendId));
 
               case 3:
-                res = _context3.sent;
-                dispatch(getCartThunk(id));
-                _context3.next = 10;
+                _ref5 = _context3.sent;
+                data = _ref5.data;
+                dispatch(deleteFriend(friendId));
+                _context3.next = 11;
                 break;
 
-              case 7:
-                _context3.prev = 7;
+              case 8:
+                _context3.prev = 8;
                 _context3.t0 = _context3["catch"](0);
                 console.error(_context3.t0);
 
-              case 10:
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 7]]);
+        }, _callee3, null, [[0, 8]]);
       }));
 
       return function (_x3) {
-        return _ref5.apply(this, arguments);
+        return _ref4.apply(this, arguments);
       };
     }()
   );
 };
-var deleteFriendThunk = function deleteFriendThunk(orderId, friendId) {
+var completeOrderThunk = function completeOrderThunk(info, userId) {
   return (
     /*#__PURE__*/
     function () {
@@ -2301,12 +2320,12 @@ var deleteFriendThunk = function deleteFriendThunk(orderId, friendId) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/orders/delete/".concat(orderId, "/").concat(friendId));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/orders/checkout/".concat(userId), info);
 
               case 3:
                 _ref7 = _context4.sent;
                 data = _ref7.data;
-                dispatch(deleteFriend(friendId));
+                dispatch(getOrdersThunk(userId));
                 _context4.next = 11;
                 break;
 
@@ -2328,55 +2347,12 @@ var deleteFriendThunk = function deleteFriendThunk(orderId, friendId) {
       };
     }()
   );
-};
-var completeOrderThunk = function completeOrderThunk(info, userId) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref8 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee5(dispatch) {
-        var _ref9, data;
-
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/orders/checkout/".concat(userId), info);
-
-              case 3:
-                _ref9 = _context5.sent;
-                data = _ref9.data;
-                dispatch(getCartThunk(userId));
-                _context5.next = 11;
-                break;
-
-              case 8:
-                _context5.prev = 8;
-                _context5.t0 = _context5["catch"](0);
-                console.error(_context5.t0);
-
-              case 11:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, null, [[0, 8]]);
-      }));
-
-      return function (_x5) {
-        return _ref8.apply(this, arguments);
-      };
-    }()
-  );
 }; //Initial State
 
 var initialSate = {
   loading: true,
-  orders: [],
-  cart: [] //Reducer
+  orders: [] // cart: []
+  //Reducer
 
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -2384,12 +2360,8 @@ var initialSate = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case GOT_CART:
-      return _objectSpread({}, state, {
-        cart: _toConsumableArray(action.cart),
-        loading: false
-      });
-
+    // case GOT_CART:
+    //   return {...state, cart: [...action.cart], loading: false}
     case GOT_ORDERS:
       return _objectSpread({}, state, {
         orders: _toConsumableArray(action.orders),
@@ -45916,7 +45888,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

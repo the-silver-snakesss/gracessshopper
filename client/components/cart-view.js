@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk, deleteFriendThunk} from '../store/orders'
+import {getOrdersThunk, deleteFriendThunk} from '../store/orders'
 import {me} from '../store/user'
 import {Link} from 'react-router-dom'
 
 class CartView extends React.Component {
   async componentDidMount() {
     await this.props.me()
-    await this.props.getCartThunk(this.props.user.id)
+    await this.props.getOrdersThunk('pending', this.props.user.id)
   }
 
   render() {
@@ -66,13 +66,13 @@ class CartView extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.orders.cart,
+  cart: state.orders.orders,
   user: state.user,
   loading: state.orders.loading
 })
 
 const mapDispatch = dispatch => ({
-  getCartThunk: userId => dispatch(getCartThunk(userId)),
+  getOrdersThunk: (status, userId) => dispatch(getOrdersThunk(status, userId)),
   me: () => dispatch(me()),
   delete: (orderId, friendId) => dispatch(deleteFriendThunk(orderId, friendId))
 })
