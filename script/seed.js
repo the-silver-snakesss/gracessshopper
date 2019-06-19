@@ -127,7 +127,8 @@ const seed = async () => {
     // ORDERS
     const order1 = await Order.create({
       status: 'complete',
-      userId: 2
+      userId: 2,
+      address: '123 Home Street'
     })
     const order2 = await Order.create({
       status: 'pending',
@@ -135,11 +136,13 @@ const seed = async () => {
     })
     const order3 = await Order.create({
       status: 'complete',
-      userId: 1
+      userId: 1,
+      address: '123 Home Street'
     })
     const order4 = await Order.create({
       status: 'complete',
-      userId: 3
+      userId: 3,
+      address: '123 Home Street'
     })
 
     const order_friends1 = await Order_Friends.create({
