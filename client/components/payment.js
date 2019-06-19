@@ -33,7 +33,6 @@ export class Payment extends Component {
         'http://localhost:8080/auth/braintree/v1/sandbox',
         nonce
       )
-      console.log(response)
     } catch (err) {
       console.error(err)
     }

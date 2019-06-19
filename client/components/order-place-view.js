@@ -17,7 +17,7 @@ class OrderPlaceView extends React.Component {
     const recentOrder = this.props.orders[this.props.orders.length - 1]
     return (
       <div>
-        {this.props.loading ? (
+        {this.props.loading && this.props.user.id ? (
           <h3>Loading....</h3>
         ) : (
           <div>
