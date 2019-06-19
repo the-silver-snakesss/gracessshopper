@@ -5,6 +5,11 @@ module.exports = router
 let gateway = braintree.connect({
   environment: braintree.Environment.Sandbox,
   // Use your own credentials from the sandbox Control Panel here
+
+  // use this code to protect credentials. Use line 13- 15 in secrets file.
+  //  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  //  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  //  privateKey: process.env.BRAINTREE_PRIVATE_KEY
   merchantId: 'yywk38mtkvb76d34',
   publicKey: 'zdz8y3gjfjr72snn',
   privateKey: '01315ae7015471f6cc4f2310e8c0ee90'
