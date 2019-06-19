@@ -52,7 +52,6 @@ class CartView extends React.Component {
               </tr>
             ))}
           </tbody>
-          <hr />
           <tbody>
             <tr>
               <td>Total:</td>
