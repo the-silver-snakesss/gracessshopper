@@ -9,14 +9,4 @@ describe('AUTHENTICATE GUEST REDUCER', () => {
   it('returns the initial state', () => {
     expect(reducer(undefined, {})).to.deep.equal({cart: []})
   })
-
-  // it('handles adding a friend request', () => {
-  //   const obj = {id: 1, name: 'foobar'}
-  //   const num = 1
-  //   expect(reducer(initialState, { type: GUEST_ADD, friend: obj, cartCount: num })).to.be.equal({
-  //     ...initialState,
-  //     cart: [{id: 1, name: 'foobar'}],
-  //     cartCount: 1
-  //   });
-  // });
 })

@@ -58,7 +58,6 @@ describe('Thunk creators', () => {
       await store.dispatch(gotFriend(fakeFriend))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GOT_FRIEND')
-      // expect(actions[0].selectedFriend).to.be.equal(fakeFriend)
     })
   })
 })

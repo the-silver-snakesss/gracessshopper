@@ -50,7 +50,6 @@ describe('Thunk creators', () => {
       await store.dispatch(getOrdersThunk(userId))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GOT_ORDERS')
-      // expect(actions[0].orders).to.be.deep.equal(fakeUser)
     })
   })
 
@@ -62,7 +61,6 @@ describe('Thunk creators', () => {
       await store.dispatch(getCartThunk(userId))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GOT_CART')
-      // expect(actions[0].cart).to.be.equal(fakeUser)
     })
   })
 })
