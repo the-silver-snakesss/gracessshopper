@@ -78,7 +78,6 @@ router.get('/pending/:userId', isAuth, async (req, res, next) => {
       },
       include: [{model: Friend}]
     })
-
     if (userOrders) {
       res.status(200).json(userOrders.friends)
     } else res.json([])
@@ -120,7 +119,7 @@ router.put('/guestcheckout/stock/:friendId', async (req, res, next) => {
   res.status(202).json(updatedFriend)
 })
 
-router.delete('/delete/:orderId/:friendId', isAuth, async (req, res, next) => {
+router.delete('/delete/:orderId/:friendId', async (req, res, next) => {
   try {
     await Order_Friends.destroy({
       where: {

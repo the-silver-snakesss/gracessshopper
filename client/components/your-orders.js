@@ -21,6 +21,7 @@ class YourOrders extends React.Component {
           let total = order.friends.reduce((accum, curr) => {
             return accum + curr.price * curr.order_friends.quantity
           }, 0)
+          total = '$' + String(total).slice(0, 5)
           return (
             <div key={order.id}>
               <p>Order Number:</p>
