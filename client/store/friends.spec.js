@@ -1,4 +1,5 @@
 import {expect} from 'chai'
+
 import {default as reducer} from './friends'
 import {gotAllFriends, gotFriend} from './friends'
 import axios from 'axios'

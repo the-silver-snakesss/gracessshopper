@@ -1,6 +1,5 @@
 import {expect} from 'chai'
 import {default as reducer} from './orders'
-
 import {gotOrders, gotCart, getCartThunk, getOrdersThunk} from './orders'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
