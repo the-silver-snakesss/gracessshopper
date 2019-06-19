@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {completeOrderThunk} from '../store/orders'
 import {me} from '../store/user'
+import Button from 'react-bootstrap/Button'
+import {Link} from 'react-router-dom'
 
 class CheckoutForm extends React.Component {
   constructor() {
@@ -41,13 +43,16 @@ class CheckoutForm extends React.Component {
             onChange={evt => this.setState({address: evt.target.value})}
           />
         </form>
-        <button
+        <Button
           type="button"
+          variant="light"
+          size="sm"
           disabled={
             !this.state.firstName || !this.state.lastName || !this.state.address
           }
           onClick={() => {
             this.props.completeOrder(this.state, this.props.user.id)
+            this.props.history.push('/ordersrecent')
             this.setState({
               firstName: '',
               lastName: '',
@@ -55,8 +60,8 @@ class CheckoutForm extends React.Component {
             })
           }}
         >
-          Complete Checkout
-        </button>
+          Place Order
+        </Button>
       </div>
     )
   }

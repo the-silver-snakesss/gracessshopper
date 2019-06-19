@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getCartThunk, deleteFriendThunk} from '../store/orders'
 import {me} from '../store/user'
 import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 class CartView extends React.Component {
   async componentDidMount() {
@@ -17,6 +18,7 @@ class CartView extends React.Component {
     let total = this.props.cart.reduce((accum, curr) => {
       return accum + curr.price * curr.order_friends.quantity
     }, 0)
+    total = '$' + String(total).slice(0, 5)
     return (
       <div>
         <table>
@@ -35,15 +37,17 @@ class CartView extends React.Component {
                 <td>{friend.order_friends.quantity}</td>
                 <td>{friend.order_friends.quantity * friend.price}</td>
                 <td>
-                  <button
+                  <Button
                     type="button"
+                    variant="light"
+                    size="sm"
                     className="deleteButton"
                     onClick={() => {
                       this.props.delete(friend.order_friends.orderId, friend.id)
                     }}
                   >
                     x
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -57,9 +61,26 @@ class CartView extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button type="button">
-          <Link to="/checkout">Chickity-CheckOut</Link>
-        </button>
+        <div className="buttons-container">
+          <div>
+            <Button type="button" variant="light" size="sm">
+              <Link to="/checkout">Chickity-CheckOut</Link>
+            </Button>
+          </div>
+          <div>
+            <Button
+              type="button"
+              className="cart-view-cont-btn"
+              variant="light"
+              size="sm"
+              onClick={() => {
+                this.props.history.push('/all')
+              }}
+            >
+              Continue Shopping
+            </Button>
+          </div>
+        </div>
       </div>
     )
   }

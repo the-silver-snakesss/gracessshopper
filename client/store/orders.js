@@ -47,6 +47,7 @@ export const getOrdersThunk = userId => async dispatch => {
     console.error(error)
   }
 }
+
 export const getCartThunk = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/pending/${userId}`)
@@ -83,7 +84,7 @@ export const deleteFriendThunk = (orderId, friendId) => async dispatch => {
 export const completeOrderThunk = (info, userId) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/orders/checkout/${userId}`, info)
-    dispatch(getOrdersThunk(userId))
+    dispatch(getCartThunk(userId))
   } catch (error) {
     console.error(error)
   }
@@ -100,10 +101,10 @@ const initialSate = {
 
 export default function(state = initialSate, action) {
   switch (action.type) {
-    case GOT_ORDERS:
-      return {...state, orders: [...action.orders], loading: false}
     case GOT_CART:
       return {...state, cart: [...action.cart], loading: false}
+    case GOT_ORDERS:
+      return {...state, orders: [...action.orders], loading: false}
     case DELETE_FRIEND:
       return {
         ...state,
