@@ -5,6 +5,8 @@ import {me} from '../store/user'
 import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
 
+import {Payment} from './payment'
+
 class CheckoutForm extends React.Component {
   constructor() {
     super()
@@ -43,6 +45,7 @@ class CheckoutForm extends React.Component {
             onChange={evt => this.setState({address: evt.target.value})}
           />
         </form>
+        <Payment />
         <Button
           type="button"
           variant="light"
