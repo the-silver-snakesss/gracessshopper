@@ -1,5 +1,4 @@
 import {expect} from 'chai'
-
 import {default as reducer} from './guest'
 import {addGuestThunk, GUEST_ADD} from './guest'
 
