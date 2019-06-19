@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {guestCheckout} from '../store/guest'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 
 class GuestCheckoutForm extends React.Component {
   constructor() {
@@ -9,7 +10,8 @@ class GuestCheckoutForm extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      address: ''
+      address: '',
+      checkedOut: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,7 +29,8 @@ class GuestCheckoutForm extends React.Component {
     this.setState({
       firstName: '',
       lastName: '',
-      address: ''
+      address: '',
+      checkedOut: true
     })
   }
 
@@ -68,6 +71,13 @@ class GuestCheckoutForm extends React.Component {
           >
             Place Order
           </Button>
+          <div>
+            {this.state.checkedOut && (
+              <Alert variant="success">
+                You have successfully checked out! Enjoy your new friends
+              </Alert>
+            )}
+          </div>
         </form>
       </div>
     )
